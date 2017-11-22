@@ -27,12 +27,38 @@
   to { transform: rotate(360deg); }
 }
 
+#box1 {
+  background-color: darkorchid;
+}
+
+#box2 {
+  background-color: aqua;
+}
+
+#box3 {
+  background-color: lime;
+}
+
 
 #boxesContainer {
   display: flex;
-  justify-content: flex-end;
+  border: 10px solid goldenrod;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .box {
   border: solid #f3e 2px;
+}
+
+#box1 {
+  flex-basis: 100%;
+}
+
+#box2 {
+  flex: 2;
+}
+
+#box3 {
+  flex: 7;
 }

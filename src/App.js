@@ -30,9 +30,24 @@ class App extends Component {
             <h1>Hello World</h1>
             <BookList/>*/}
             <div id={"boxesContainer"}>
-                <div id={"box1"} className={"box"}>Box1</div>
-                <div id={"box2"} className={"box"}>Box2</div>
-                <div id={"box3"} className={"box"}>Box3</div>
+                <div id={"box1"} className={"box"}>
+                    <Toolbar id={"toolbar"}>
+                        <ToolbarGroup>
+                            <ToolbarTitle text="KtabShare"/>
+                            <ToolbarSeparator/>
+                            <FlatButton primary={true}>Register</FlatButton>
+                        </ToolbarGroup>
+                    </Toolbar>
+                </div>
+                <div id={"box2"} className={"box"}>
+
+                </div>
+                <div id={"box3"} className={"box"}>
+                    <div id={"booksContainer"}>
+                        <h1>Books need be here</h1>
+                        <h3>A mind needs books same as a sword needs some stone -Some Imp</h3>
+                    </div>
+                </div>
             </div>
 
         </MuiThemeProvider>
