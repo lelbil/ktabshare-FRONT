@@ -27,6 +27,8 @@
   to { transform: rotate(360deg); }
 }
 
+
+/* Delete these background colours */
 #box1 {
   background-color: darkorchid;
 }
@@ -39,26 +41,52 @@
   background-color: lime;
 }
 
+/* custom styling starts here */
+
+
+/*POSITIONING*/
 
 #boxesContainer {
   display: flex;
-  border: 10px solid goldenrod;
-  flex-wrap: wrap;
-  align-items: stretch;
-}
-
-.box {
-  border: solid #f3e 2px;
+  flex-direction:column;
+  height: 100vh;
 }
 
 #box1 {
-  flex-basis: 100%;
+  flex: none;
+}
+
+#content {
+  flex: 9;
+  display: flex;
 }
 
 #box2 {
-  flex: 2;
+  flex: 1;
 }
 
 #box3 {
-  flex: 7;
+  flex: 4;
+}
+
+/* TODO: Make mobile/tablet responsive with media queries */
+
+#toolbar {
+}
+
+#toolbarGroup {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#toolbarGroup > * {
+  display: flex;
+}
+
+#toolbarTitle {
+  align-items: center;
+}
+
+#registerButton, #login {
 }

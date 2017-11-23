@@ -32,22 +32,39 @@ class App extends Component {
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
                     <Toolbar id={"toolbar"}>
-                        <ToolbarGroup>
-                            <ToolbarTitle text="KtabShare"/>
-                            <ToolbarSeparator/>
-                            <FlatButton primary={true}>Register</FlatButton>
+                        <ToolbarGroup id={"toolbarGroup"}>
+                            <div id={"toolbarTitle"}>
+                                <ToolbarTitle text="KtabShare"/>
+                                <ToolbarSeparator/>
+                            </div>
+                            <div id={"toolbarControls"}>
+                                <section id={"login"} className={"login"}>
+                                    <form action={""} className="login">
+                                        <input type={"text"} placeholder={"Username"} />
+                                        <input type={"password"} placeholder={"Password"} />
+                                        {/*<input type={"submit"} value={"LOGIN"} />*/}
+                                        <FlatButton primary={true}>Login</FlatButton>
+                                    </form>
+                                </section>
+                                <ToolbarSeparator/>
+                                <FlatButton id={"registerButton"} primary={true}>Register</FlatButton>
+                            </div>
+
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <div id={"box2"} className={"box"}>
+                <div id={"content"}>
+                    <div id={"box2"} className={"box"}>
 
-                </div>
-                <div id={"box3"} className={"box"}>
-                    <div id={"booksContainer"}>
-                        <h1>Books need be here</h1>
-                        <h3>A mind needs books same as a sword needs some stone -Some Imp</h3>
+                    </div>
+                    <div id={"box3"} className={"box"}>
+                        <div id={"booksContainer"}>
+                            <h1>Books need be here</h1>
+                            <h3>A mind needs books same as a sword needs some stone -Some Imp</h3>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
         </MuiThemeProvider>
