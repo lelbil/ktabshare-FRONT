@@ -2,13 +2,18 @@
     display: flex;
     flex-wrap: wrap;
     border: solid 2px blue;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+    justify-content: space-around;
+    flex-direction: row;
     padding: 20px 0;
 }
 
 #gridList > * {
-    flex-basis: 24%;
-    border: solid 3px red;
+    margin: 15px;
+    flex: 1 1 17%;
+    /*flex-basis: 3%;*/
+}
+
+img {
+    max-height: 100%;
+    max-width: 100%;
 }

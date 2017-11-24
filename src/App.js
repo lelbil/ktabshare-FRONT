@@ -6,6 +6,7 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 import Drawer from 'material-ui/Drawer';
 import {GridList, GridTile} from 'material-ui/GridList';
 import BookList from './Components/BookList'
+import SideControls from './Components/SideControls'
 import TextField from 'material-ui/TextField'
 
 
@@ -41,7 +42,7 @@ class App extends Component {
                 </div>
                 <div id={"content"}>
                     <div id={"box2"} className={"box"}>
-
+                        <SideControls/>
                     </div>
                     <div id={"box3"} className={"box"}>
                             <BookList/>
