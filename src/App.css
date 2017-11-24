@@ -54,6 +54,7 @@
 
 #box1 {
   flex: none;
+  /*border: solid 2px red;*/
 }
 
 #content {
@@ -66,7 +67,13 @@
 }
 
 #box3 {
+  display: flex;
   flex: 4;
+  border: dashed 4px;
+}
+
+#box3 > * {
+  flex: 1;
 }
 
 /* TODO: Make mobile/tablet responsive with media queries */
@@ -77,16 +84,23 @@
 #toolbarGroup {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  height: 100%
 }
 
 #toolbarGroup > * {
   display: flex;
+  /*border: solid 2px navajowhite;*/
 }
 
 #toolbarTitle {
   align-items: center;
 }
 
+#toolbarControls > * {
+  /*border: solid 2px blue;*/
+}
+
 #registerButton, #login {
+  align-self: flex-end;
 }
