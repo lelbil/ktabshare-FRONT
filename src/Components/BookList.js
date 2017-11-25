@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import {GridList, GridTile} from 'material-ui/GridList'
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+
+
 import './BookList.css'
 
 const data = [
@@ -9,178 +14,47 @@ const data = [
 ]
 
 
+
+
 class BookList extends Component {
     render = () => (
-                <div id={"gridList"} cols={0} cellHeight={'auto'}>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
+        <div id="bookContainer">
+            <Paper className="bookPanel" zDepth={3}>
+                <div className="bookPanelContent">
+                    <img className="bookCover" alt="A Song Of Ice And Fire: A Feast Of Crows" src="https://images-na.ssl-images-amazon.com/images/I/71nJQs9rawL.jpg"></img>
+                    <div className="bookInfo">
+                        <h3 className="bookTitle">A Song Of Ice And Fire</h3>
+                        <br/>
+                        <h5 className="authorName">J.K Rowling</h5>
                     </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
+                    <div className="buttons">
+                        <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
+                        <RaisedButton>DONATE</RaisedButton>
                     </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div>
-                        <GridTile className={"grid"}
-                                  key={"Key"}
-                                  title={"Title"}
-                                  subtitle={"SubTitle"}
-                        >
-                            <img src={"http://lorempixel.com/200/200/"} />
-                        </GridTile>
-                    </div>
-                    <div></div>
-                    <div></div>
-                    {/*<GridTile className={"grid"}
-                        key={"Key"}
-                        title={"Title"}
-                        subtitle={"SubTitle"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"Title2"}
-                        subtitle={"SubTitle2"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"titre"}
-                        subtitle={"Sous-titre"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"عنوان"}
-                        subtitle={"عنوان ثاني"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"Title2"}
-                        subtitle={"SubTitle2"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"titre"}
-                        subtitle={"Sous-titre"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>
-                    <GridTile className={"grid"}
-                        key={"Key"}
-                        title={"عنوان"}
-                        subtitle={"عنوان ثاني"}
-                    >
-                        <img src={"http://lorempixel.com/200/200/"} />
-                    </GridTile>*/}
                 </div>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+            <Paper className="bookPanel" zDepth={3}>
+                <h1>Test</h1>
+            </Paper>
+        </div>
     )
 }
 

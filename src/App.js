@@ -17,7 +17,7 @@ class App extends Component {
         <MuiThemeProvider>
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
-                    <Toolbar id={"toolbar"}>
+                    <Toolbar style={{backgroundColor: "rgba(70, 153, 135, 0.7)", borderBottom: "solid 2px"}} id={"toolbar"}>
                         <ToolbarGroup id={"toolbarGroup"}>
                             <div id={"toolbarTitle"}>
                                 <ToolbarTitle text="KtabShare"/>
@@ -26,7 +26,7 @@ class App extends Component {
                             <div id={"toolbarControls"}>
                                 <section id={"login"} className={"login"}>
                                     <form action={""} className="login">
-                                        <input type={"text"} placeholder={"Username"} style={{height:"30px"}}/>
+                                        <input type={"text"} placeholder={"Username"} style={{height:"30px", marginRight: "10px"}}/>
                                         <input type={"password"} placeholder={"Password"} style={{height:"30px"}}/>
                                         {/*<TextField hintText={"Username"} floatingLabelText={"Username"}/>
                                         <TextField hintText={"Password"} floatingLabelText={"Password"} type={"Password"}/>*/}

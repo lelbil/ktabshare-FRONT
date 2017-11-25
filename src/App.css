@@ -34,11 +34,12 @@
 }
 
 #box2 {
-  background-color: aqua;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-right: solid 5px wheat;
 }
 
-#box3 {
-  background-color: lime;
+#content {
+  background-image: url("https://i.pinimg.com/originals/81/9b/82/819b829f5d567c9bdb8ee761d504d98c.jpg");
 }
 
 /* custom styling starts here */
@@ -69,7 +70,6 @@
 #box3 {
   display: flex;
   flex: 4;
-  border: dashed 4px;
 }
 
 #box3 > * {

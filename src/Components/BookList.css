@@ -1,19 +1,51 @@
-#gridList {
+#bookContainer {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.bookPanel {
+    margin: auto;
+    margin-top: 15px;
+    width: 80%;
+    height: 30%;
+
+}
+
+.bookPanelContent {
     display: flex;
     flex-wrap: wrap;
-    border: solid 2px blue;
     justify-content: space-around;
-    flex-direction: row;
-    padding: 20px 0;
 }
 
-#gridList > * {
-    margin: 15px;
-    flex: 1 1 17%;
-    /*flex-basis: 3%;*/
+.bookCover {
+    flex: 1;
+    max-height: 130px;
+    margin: 10px;
 }
 
-img {
-    max-height: 100%;
-    max-width: 100%;
+.bookInfo {
+    flex: 5;
+    text-align: left;
+}
+
+.authorName {
+    margin-top: -30px;
+}
+
+.buttons {
+    flex: 2;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons > * {
+    border: solid 1px;
+    width: 50%;
+    right: 0;
+    margin: 5px 0px;
 }
