@@ -36,19 +36,17 @@ class App extends Component {
                                 <ToolbarSeparator/>
                                 <FlatButton id={"registerButton"} primary={true}>Register</FlatButton>
                             </div>
-
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
                 <div id={"content"}>
-                    <div id={"box2"} className={"box"}>
+                    <div id={"box2"} className={"box"} style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
                         <SideControls/>
                     </div>
                     <div id={"box3"} className={"box"}>
                             <BookList/>
                     </div>
                 </div>
-
             </div>
 
         </MuiThemeProvider>
