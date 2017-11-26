@@ -27,11 +27,7 @@
   to { transform: rotate(360deg); }
 }
 
-
-/* Delete these background colours */
-#box1 {
-  background-color: darkorchid;
-}
+/* custom styling starts here */
 
 #box2 {
   background-color: rgba(255, 255, 255, 0.2);
@@ -41,9 +37,6 @@
 #content {
   background-image: url("https://i.pinimg.com/originals/81/9b/82/819b829f5d567c9bdb8ee761d504d98c.jpg");
 }
-
-/* custom styling starts here */
-
 
 /*POSITIONING*/
 
@@ -55,7 +48,6 @@
 
 #box1 {
   flex: none;
-  /*border: solid 2px red;*/
 }
 
 #content {
@@ -90,15 +82,10 @@
 
 #toolbarGroup > * {
   display: flex;
-  /*border: solid 2px navajowhite;*/
 }
 
 #toolbarTitle {
   align-items: center;
-}
-
-#toolbarControls > * {
-  /*border: solid 2px blue;*/
 }
 
 #registerButton, #login {

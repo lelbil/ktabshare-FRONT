@@ -3,12 +3,8 @@ import './App.css';
 import FlatButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import Drawer from 'material-ui/Drawer';
-import {GridList, GridTile} from 'material-ui/GridList';
 import BookList from './Components/BookList'
 import SideControls from './Components/SideControls'
-import TextField from 'material-ui/TextField'
-
 
 class App extends Component {
   render() {

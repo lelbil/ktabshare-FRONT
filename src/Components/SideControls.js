@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import {blue500} from 'material-ui/styles/colors'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import Checkbox from 'material-ui/Checkbox'
-import Toggle from 'material-ui/Toggle'
-
-
-
 
 import './SideControls.css'
-
 
 
 class SideControls extends Component {

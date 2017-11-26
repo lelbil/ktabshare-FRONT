@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import {GridList, GridTile} from 'material-ui/GridList'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
-
 
 import './BookList.css'
 
@@ -12,9 +9,6 @@ const data = [
 
     }
 ]
-
-
-
 
 class BookList extends Component {
     render = () => (
