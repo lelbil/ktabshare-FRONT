@@ -4,6 +4,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import './BookList.css'
 
+const styles = {
+    bookCover: {
+        boxShadow: "2px 2px 2px #888",
+        borderRadius: "5px",
+        border: "solid 1px black",
+    },
+}
+
 const books = [
     {
         title: "Sherlock Holmes: The Complete Stories",
@@ -49,7 +57,7 @@ class BookList extends Component {
                 books.map(book => (
                     <Paper className="bookPanel" zDepth={3}>
                         <div className="bookPanelContent">
-                            <img className="bookCover" alt={book.title} src={book.coverPath} style={{boxShadow: "2px 2px 2px #888", borderRadius: "5px", border: "solid 1px black"}}/>
+                            <img className="bookCover" alt={book.title} src={book.coverPath} style={styles.bookCover}/>
                             <div className="bookInfo">
                                 <h3 className="bookTitle">{book.title}</h3>
                                 <br/>

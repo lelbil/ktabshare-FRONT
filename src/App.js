@@ -6,6 +6,26 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 import BookList from './Components/BookList'
 import SideControls from './Components/SideControls'
 
+//Inline styles
+const styles = {
+    toolbar: {
+        backgroundColor: "rgba(70, 153, 135, 0.7)",
+        borderBottom: "solid 2px",
+    },
+    usernameInput: {
+        height:"30px",
+        marginRight: "10px",
+    },
+    passwordInput: {
+        height:"30px",
+    },
+    box2: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+    },
+}
+
 class App extends Component {
   render() {
     return (
@@ -13,7 +33,7 @@ class App extends Component {
         <MuiThemeProvider>
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
-                    <Toolbar style={{backgroundColor: "rgba(70, 153, 135, 0.7)", borderBottom: "solid 2px"}} id={"toolbar"}>
+                    <Toolbar style={styles.toolbar} id={"toolbar"}>
                         <ToolbarGroup id={"toolbarGroup"}>
                             <div id={"toolbarTitle"}>
                                 <ToolbarTitle text="KtabShare"/>
@@ -22,10 +42,8 @@ class App extends Component {
                             <div id={"toolbarControls"}>
                                 <section id={"login"} className={"login"}>
                                     <form action={""} className="login">
-                                        <input type={"text"} placeholder={"Username"} style={{height:"30px", marginRight: "10px"}}/>
-                                        <input type={"password"} placeholder={"Password"} style={{height:"30px"}}/>
-                                        {/*<TextField hintText={"Username"} floatingLabelText={"Username"}/>
-                                        <TextField hintText={"Password"} floatingLabelText={"Password"} type={"Password"}/>*/}
+                                        <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
+                                        <input type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
                                         <FlatButton primary={true}>Login</FlatButton>
                                     </form>
                                 </section>
@@ -36,7 +54,7 @@ class App extends Component {
                     </Toolbar>
                 </div>
                 <div id={"content"}>
-                    <div id={"box2"} className={"box"} style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                    <div id={"box2"} className={"box"} style={styles.box2}>
                         <SideControls/>
                     </div>
                     <div id={"box3"} className={"box"}>
