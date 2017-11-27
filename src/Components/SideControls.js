@@ -29,6 +29,33 @@ const styles = {
     },
 }
 
+const genres = [
+    "Science Fiction",
+    "Drama",
+    "Action And Adventure",
+    "Romance",
+    "Mystery",
+    "Horror",
+    "Self Help",
+    "Health",
+    "Guide",
+    "Travel",
+    "Children",
+    "Religion",
+    "Science",
+    "Maths",
+    "Poetry",
+    "Encyclopedia",
+    "Dictionary",
+    "Comic",
+    "Art",
+    "Cookbook",
+    "Biography",
+    "Autobiography",
+    "Fantasy",
+    "Other",
+]
+
 class SideControls extends Component {
     render = () => (
         <div id={"sideControls"} style={styles.sideControls}>
@@ -47,30 +74,12 @@ class SideControls extends Component {
             <List>
                 <Subheader>Genres</Subheader>
                     <ListItem style={{marginBottom: "10px", ...styles.listItem}} primaryText="Select All" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Science Fiction" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}}/>} />
-                    <ListItem style={styles.listItem} primaryText="Drama" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Action And Adventure" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Romance" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Mystery" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Horror" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Self Help" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Health" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Guide" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Travel" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Children" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Religion" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Science" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Maths" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Poetry" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Encyclopedia" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Dictionary" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Comic" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Art" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Cookbook" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Biography" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Autobiography" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Fantasy" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                    <ListItem style={styles.listItem} primaryText="Other" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
+
+                {genres.map(genre => <ListItem
+                        style={styles.listItem}
+                        primaryText={genre}
+                        leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}}/>}
+                    />)}
             </List>
         </div>
     )
