@@ -10,6 +10,10 @@ const styles = {
         borderRadius: "5px",
         border: "solid 1px black",
     },
+    bookDescription: {
+        fontSize: "14px",
+        textAlign: "justify",
+    },
 }
 
 const books = [
@@ -62,6 +66,7 @@ class BookList extends Component {
                                 <h3 className="bookTitle">{book.title}</h3>
                                 <br/>
                                 <h5 className="authorName">{book.author}</h5>
+                                <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
                             </div>
                             <div className="buttons">
                                 <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
