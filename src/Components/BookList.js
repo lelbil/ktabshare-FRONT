@@ -16,6 +16,7 @@ const styles = {
     },
 }
 
+//dummy data
 const books = [
     {
         title: "Sherlock Holmes: The Complete Stories",
@@ -54,14 +55,35 @@ const books = [
     },
 ]
 
+const defaultBookCoverImageUrl = "https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg"
+
+const fetchAllBooksEndPoint = "http://localhost:3005/books"
+
 class BookList extends Component {
+    constructor() {
+        super()
+        this.state = {
+            page: 1,
+            perPage: 1,
+            books: [],
+        }
+    }
+
+    componentDidMount() {
+        fetch(fetchAllBooksEndPoint)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ books: data.books })
+            });
+    }
+
     render = () => (
         <div id="bookContainer">
             {
-                books.map(book => (
+                this.state.books.map(book => (
                     <Paper className="bookPanel" zDepth={3}>
                         <div className="bookPanelContent">
-                            <img className="bookCover" alt={book.title} src={book.coverPath} style={styles.bookCover}/>
+                            <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
                             <div className="bookInfo">
                                 <h3 className="bookTitle">{book.title}</h3>
                                 <br/>
