@@ -57,10 +57,21 @@ const genres = [
 ]
 
 class SideControls extends Component {
+
+    constructor (props) {
+        super(props)
+    }
+
+    change = (e) => {
+        const { value } = e.target
+        console.log('VALUE', value)
+        this.props.handleChange('ERZ', value)
+    }
+
     render = () => (
         <div id={"sideControls"} style={styles.sideControls}>
             <List>
-                <TextField id="titleSearchField" className="textField" floatingLabelText={"Title"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}}/>
+                <TextField id="titleSearchField" className="textField" floatingLabelText={"Title"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}} onChange={this.change}/>
                 <TextField id="authorSearchField" className="textField" floatingLabelText={"Author"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}}/>
             </List>
             <Divider style={styles.divider}/>

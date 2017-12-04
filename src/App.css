@@ -36,6 +36,8 @@
 
 #content {
   background-image: url("https://i.pinimg.com/originals/81/9b/82/819b829f5d567c9bdb8ee761d504d98c.jpg");
+  flex: 9;
+  display: flex;
 }
 
 /*POSITIONING*/
@@ -48,11 +50,6 @@
 
 #box1 {
   flex: none;
-}
-
-#content {
-  flex: 9;
-  display: flex;
 }
 
 #box2 {

@@ -3,8 +3,7 @@ import './App.css';
 import FlatButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import BookList from './Components/BookList'
-import SideControls from './Components/SideControls'
+import Content from './Components/content'
 
 //Inline styles
 const styles = {
@@ -18,11 +17,6 @@ const styles = {
     },
     passwordInput: {
         height:"30px",
-    },
-    box2: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
     },
 }
 
@@ -53,14 +47,7 @@ class App extends Component {
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <div id={"content"}>
-                    <div id={"box2"} className={"box"} style={styles.box2}>
-                        <SideControls/>
-                    </div>
-                    <div id={"box3"} className={"box"}>
-                            <BookList/>
-                    </div>
-                </div>
+                <Content query="ERZ BERZ"/>
             </div>
 
         </MuiThemeProvider>

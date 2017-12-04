@@ -60,8 +60,8 @@ const defaultBookCoverImageUrl = "https://islandpress.org/sites/default/files/40
 const fetchAllBooksEndPoint = "http://localhost:3005/books"
 
 class BookList extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             page: 1,
             perPage: 1,
@@ -79,6 +79,7 @@ class BookList extends Component {
 
     render = () => (
         <div id="bookContainer">
+            <h1>{this.props.query}</h1>
             {
                 this.state.books.map(book => (
                     <Paper className="bookPanel" zDepth={3}>
