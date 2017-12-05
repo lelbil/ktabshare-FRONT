@@ -14,14 +14,16 @@ class Content extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            query: 'ERZ',
+            query: {
+                title: ''
+            },
         }
     }
 
-    handleChange = (field, value) => {
-        this.setState({query: value})
+    handleChange = (field, value) => {//TODO; make this handle all different filters
+        console.log('field', field)
+        this.setState({query: Object.assign(this.state.query, {title: value})})
     }
-
 
     render = () => (
         <div id={"content"}>
