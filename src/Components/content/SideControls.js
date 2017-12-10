@@ -67,7 +67,7 @@ class SideControls extends Component {
         <div id={"sideControls"} style={styles.sideControls}>
             <List>
                 <TextField name="title" id="titleSearchField" className="textField" floatingLabelText={"Title"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}} onChange={this.change}/>
-                <TextField name="author" id="authorSearchField" className="textField" floatingLabelText={"Author"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}}/>
+                <TextField name="author" id="authorSearchField" className="textField" floatingLabelText={"Author"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}} onChange={this.change}/>
             </List>
             <Divider style={styles.divider}/>
             <List style={styles.list}>

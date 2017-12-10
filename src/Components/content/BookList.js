@@ -26,19 +26,25 @@ class BookList extends Component {
             page: 1,
             perPage: 1,
             books: [],
+            responseStatus: 200,
         }
     }
 
     componentDidMount() {
         fetch(`${getAllBooksEndPoint}`)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status !== 200) {
+                    console.log('There was an error')
+                }
+                return response.json()
+            })
             .then(data => {
                 this.setState({ books: data.books })
             });
     }
 
     componentWillReceiveProps (props) {
-        fetch(`${getAllBooksEndPoint}?title=${props.query.title}`)
+        fetch(`${getAllBooksEndPoint}?title=${props.query.title}&author=${props.query.author}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ books: data.books })
@@ -48,23 +54,28 @@ class BookList extends Component {
     render = () => (
         <div id="bookContainer">
             {
-                this.state.books.map(book => (
-                    <Paper className="bookPanel" zDepth={3}>
-                        <div className="bookPanelContent">
-                            <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
-                            <div className="bookInfo">
-                                <h3 className="bookTitle">{book.title}</h3>
-                                <br/>
-                                <h5 className="authorName">{book.author}</h5>
-                                <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
+                (this.state.responseStatus !== 200) ?
+                    <h1>There have been an error while fetching books</h1>
+                :
+                    this.state.books.map(book => (
+                        <Paper className="bookPanel" zDepth={3}>
+                            <div className="bookPanelContent">
+                                <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
+                                <div className="bookInfo">
+                                    <h3 className="bookTitle">{book.title}</h3>
+                                    <br/>
+                                    <h5 className="authorName">{book.author}</h5>
+                                    <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
+                                </div>
+                                <div className="buttons">
+                                    <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
+                                    <RaisedButton>DONATE</RaisedButton>
+                                </div>
                             </div>
-                            <div className="buttons">
-                                <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
-                                <RaisedButton>DONATE</RaisedButton>
-                            </div>
-                        </div>
-                    </Paper>
-                ))
+                        </Paper>
+                    ))
+
+
             }
         </div>
     )
