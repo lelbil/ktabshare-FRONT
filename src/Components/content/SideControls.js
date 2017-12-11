@@ -29,6 +29,18 @@ const styles = {
     },
 }
 
+
+//Language
+const ARABIC = 'arabic'
+const ENGLISH = 'english'
+const FRENCH = 'french'
+const ITALIAN = 'italian'
+const SPANISH = 'spanish'
+const GERMAN = 'german'
+
+const languages = [ ARABIC,  ENGLISH,  FRENCH,  ITALIAN,  SPANISH,  GERMAN]
+
+
 const genres = [
     "Science Fiction",
     "Drama",
@@ -63,6 +75,11 @@ class SideControls extends Component {
         this.props.handleChange(name, value)
     }
 
+    languageChanged = (e) => {
+        const { name, checked } = e.target
+        this.props.handleLanguage(name, checked)
+    }
+
     render = () => (
         <div id={"sideControls"} style={styles.sideControls}>
             <List>
@@ -72,9 +89,9 @@ class SideControls extends Component {
             <Divider style={styles.divider}/>
             <List style={styles.list}>
                 <Subheader>Language Choice</Subheader>
-                <ListItem style={styles.listItem} primaryText="English" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                <ListItem style={styles.listItem} primaryText="Arabic" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-                <ListItem style={styles.listItem} primaryText="French" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
+                {languages.map(language => <ListItem
+                    style={styles.listItem} primaryText={language} onChange={this.languageChanged} leftCheckbox={<Checkbox name={language}  iconStyle={{fill: "wheat"}}/>}
+                />)}
             </List>
             <Divider style={{backgroundColor: "black"}}/>
             <List>

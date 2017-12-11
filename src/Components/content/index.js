@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
+
 import SideControls from './SideControls'
 import BookList from './BookList'
 
@@ -17,6 +19,7 @@ class Content extends Component {
             query: {
                 title: '',
                 author: '',
+                languages: []
             },
         }
     }
@@ -27,10 +30,20 @@ class Content extends Component {
         this.setState({query: Object.assign(this.state.query, newFilter)})
     }
 
+    handleLanguage = (language, checked) => {
+        if (checked) {
+            const languages = _.concat(this.state.query.languages, language)
+            this.setState({ query: Object.assign(this.state.query, {languages}) })
+        } else {
+            const languages = _.difference(this.state.query.languages, [language])
+            this.setState({ query: Object.assign(this.state.query, {languages})})
+        }
+    }
+
     render = () => (
         <div id={"content"}>
             <div id={"box2"} className={"box"} style={styles.box2} >
-                <SideControls handleChange={this.handleChange}/>
+                <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage}/>
             </div>
             <div id={"box3"} className={"box"}>
                 <BookList query={this.state.query}/>

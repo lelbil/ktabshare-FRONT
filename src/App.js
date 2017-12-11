@@ -47,7 +47,7 @@ class App extends Component {
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <Content query="ERZ BERZ"/>
+                <Content/>
             </div>
 
         </MuiThemeProvider>
