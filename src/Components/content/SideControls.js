@@ -5,6 +5,7 @@ import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import Checkbox from 'material-ui/Checkbox'
+import _ from 'lodash'
 
 import { capitalizeFirstLetters } from '../../helpers'
 
@@ -73,8 +74,12 @@ const genres = [
 
 class SideControls extends Component {
 
-    state = {
-        checked: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            checked: genres,
+            canCheckAll: false,
+        }
     }
 
     change = (e) => {
@@ -88,8 +93,33 @@ class SideControls extends Component {
     }
 
     genreChanged = (e) => {
+
         const { name, checked } = e.target
-        this.props.handleGenre(name, checked)
+        const newChecked = checked? _.concat(this.state.checked, name) : _.difference(this.state.checked, [name])
+
+        this.setState(Object.assign({checked: newChecked}))
+        this.props.handleGenre(newChecked)
+
+
+    }
+
+    checkAll = (e) => {
+
+        let stateChange
+        if (e.target.checked) {
+            stateChange ={
+                checked: genres,
+                canCheckAll: false,
+            }
+        } else {
+            stateChange = {
+                checked: [],
+                canCheckAll: true,
+            }
+        }
+
+        this.setState(Object.assign(stateChange))
+        this.props.handleGenre(stateChange.checked)
     }
 
     render = () => (
@@ -108,12 +138,12 @@ class SideControls extends Component {
             <Divider style={{backgroundColor: "black"}}/>
             <List>
                 <Subheader>Genres</Subheader>
-                    <ListItem style={{marginBottom: "10px", ...styles.listItem}} primaryText="Select All" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
+                    <ListItem style={{marginBottom: "10px", ...styles.listItem, }} primaryText={(this.state.canCheckAll? "S": "Des") + "elect All"} onChange={this.checkAll} leftCheckbox={<Checkbox defaultChecked={true} iconStyle={{fill: "wheat"}} />} />
                 {genres.map(genre => <ListItem
                         style={styles.listItem}
                         primaryText={capitalizeFirstLetters(genre)}
                         onChange={this.genreChanged}
-                        leftCheckbox={<Checkbox name={genre} iconStyle={{fill: "wheat"}}/>}
+                        leftCheckbox={<Checkbox checked={_.includes(this.state.checked, genre)} name={genre} iconStyle={{fill: "wheat"}}/>}
                     />)}
             </List>
         </div>

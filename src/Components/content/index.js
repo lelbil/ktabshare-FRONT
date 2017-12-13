@@ -41,14 +41,8 @@ class Content extends Component {
         }
     }
 
-    handleGenre = (genre, checked) => {
-        if (checked) {
-            const genres = _.concat(this.state.query.genres, genre)
-            this.setState({ query: Object.assign(this.state.query, {genres}) })
-        } else {
-            const genres = _.difference(this.state.query.languages, [genre])
-            this.setState({ query: Object.assign(this.state.query, {genres})})
-        }
+    handleGenre = (genres) => {
+        this.setState({query: Object.assign(this.state.query, {genres})})
     }
 
     render = () => (
