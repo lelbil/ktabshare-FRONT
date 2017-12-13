@@ -6,6 +6,9 @@ import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import Checkbox from 'material-ui/Checkbox'
 
+import { capitalizeFirstLetters } from '../../helpers'
+
+
 import './SideControls.css'
 
 const styles = {
@@ -90,7 +93,7 @@ class SideControls extends Component {
             <List style={styles.list}>
                 <Subheader>Language Choice</Subheader>
                 {languages.map(language => <ListItem
-                    style={styles.listItem} primaryText={language} onChange={this.languageChanged} leftCheckbox={<Checkbox name={language}  iconStyle={{fill: "wheat"}}/>}
+                    style={styles.listItem} primaryText={capitalizeFirstLetters(language)} onChange={this.languageChanged} leftCheckbox={<Checkbox name={language}  iconStyle={{fill: "wheat"}}/>}
                 />)}
             </List>
             <Divider style={{backgroundColor: "black"}}/>

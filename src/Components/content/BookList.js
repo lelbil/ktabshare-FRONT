@@ -35,6 +35,7 @@ class BookList extends Component {
             .then(response => {
                 if (response.status !== 200) {
                     console.log('There was an error')
+                    console.log('Response: ', response)
                 }
                 return response.json()
             })
