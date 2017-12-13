@@ -45,8 +45,8 @@ class BookList extends Component {
     }
 
     componentWillReceiveProps (props) {
-        const query = props.query
-        fetch(`${getAllBooksEndPoint}?title=${query.title}&author=${query.author}&languages=${query.languages}`)
+        const {title, author, languages, genres} = props.query
+        fetch(`${getAllBooksEndPoint}?title=${title}&author=${author}&languages=${languages}&genres=${genres}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ books: data.books })

@@ -19,7 +19,8 @@ class Content extends Component {
             query: {
                 title: '',
                 author: '',
-                languages: []
+                languages: [],
+                genres: []
             },
         }
     }
@@ -40,10 +41,20 @@ class Content extends Component {
         }
     }
 
+    handleGenre = (genre, checked) => {
+        if (checked) {
+            const genres = _.concat(this.state.query.genres, genre)
+            this.setState({ query: Object.assign(this.state.query, {genres}) })
+        } else {
+            const genres = _.difference(this.state.query.languages, [genre])
+            this.setState({ query: Object.assign(this.state.query, {genres})})
+        }
+    }
+
     render = () => (
         <div id={"content"}>
             <div id={"box2"} className={"box"} style={styles.box2} >
-                <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage}/>
+                <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage} handleGenre={this.handleGenre}/>
             </div>
             <div id={"box3"} className={"box"}>
                 <BookList query={this.state.query}/>

@@ -45,33 +45,37 @@ const languages = [ ARABIC,  ENGLISH,  FRENCH,  ITALIAN,  SPANISH,  GERMAN]
 
 
 const genres = [
-    "Science Fiction",
-    "Drama",
-    "Action And Adventure",
-    "Romance",
-    "Mystery",
-    "Horror",
-    "Self Help",
-    "Health",
-    "Guide",
-    "Travel",
-    "Children",
-    "Religion",
-    "Science",
-    "Maths",
-    "Poetry",
-    "Encyclopedia",
-    "Dictionary",
-    "Comic",
-    "Art",
-    "Cookbook",
-    "Biography",
-    "Autobiography",
-    "Fantasy",
-    "Other",
+    "science fiction",
+    "drama",
+    "action and adventure",
+    "romance",
+    "mystery",
+    "horror",
+    "self help",
+    "health",
+    "guide",
+    "travel",
+    "children",
+    "religion",
+    "science",
+    "maths",
+    "poetry",
+    "encyclopedia",
+    "dictionary",
+    "comic",
+    "art",
+    "cookbook",
+    "biography",
+    "autobiography",
+    "fantasy",
+    "other",
 ]
 
 class SideControls extends Component {
+
+    state = {
+        checked: []
+    }
 
     change = (e) => {
         const { value, name } = e.target
@@ -81,6 +85,11 @@ class SideControls extends Component {
     languageChanged = (e) => {
         const { name, checked } = e.target
         this.props.handleLanguage(name, checked)
+    }
+
+    genreChanged = (e) => {
+        const { name, checked } = e.target
+        this.props.handleGenre(name, checked)
     }
 
     render = () => (
@@ -100,11 +109,11 @@ class SideControls extends Component {
             <List>
                 <Subheader>Genres</Subheader>
                     <ListItem style={{marginBottom: "10px", ...styles.listItem}} primaryText="Select All" leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}} />} />
-
                 {genres.map(genre => <ListItem
                         style={styles.listItem}
-                        primaryText={genre}
-                        leftCheckbox={<Checkbox iconStyle={{fill: "wheat"}}/>}
+                        primaryText={capitalizeFirstLetters(genre)}
+                        onChange={this.genreChanged}
+                        leftCheckbox={<Checkbox name={genre} iconStyle={{fill: "wheat"}}/>}
                     />)}
             </List>
         </div>
