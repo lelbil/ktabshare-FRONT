@@ -1,0 +1,22 @@
+
+.iconButton {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(237, 218, 220, 0.4);
+}
+
+a {
+    margin: 0 6px;
+    padding: 8px 12px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(237, 218, 220, 0.4);
+}
+
+a:hover, .iconButton:hover {
+    background-color: rgba(237, 218, 220, 0.8);
+}

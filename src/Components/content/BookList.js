@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import Pagination from './Pagination'
 
 import './BookList.css'
 
@@ -40,7 +41,13 @@ class BookList extends Component {
                 return response.json()
             })
             .then(data => {
-                this.setState({ books: data.books })
+                this.setState({
+                    books: data.books,
+                    page: data.page,
+                    perPage: data.perPage,
+                    count: data.count,
+                    hasNextPage: data.hasNextPage,
+                })
             });
     }
 
@@ -49,7 +56,12 @@ class BookList extends Component {
         fetch(`${getAllBooksEndPoint}?title=${title}&author=${author}&languages=${languages}&genres=${genres}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ books: data.books })
+                this.setState({ books: data.books,
+                    page: data.page,
+                    perPage: data.perPage,
+                    count: data.count,
+                    hasNextPage: data.hasNextPage,
+                })
             })
     }
 
@@ -59,25 +71,26 @@ class BookList extends Component {
                 (this.state.responseStatus !== 200) ?
                     <h1>There have been an error while fetching books</h1>
                 :
-                    this.state.books.map(book => (
-                        <Paper className="bookPanel" zDepth={3}>
-                            <div className="bookPanelContent">
-                                <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
-                                <div className="bookInfo">
-                                    <h3 className="bookTitle">{book.title}</h3>
-                                    <br/>
-                                    <h5 className="authorName">{book.author}</h5>
-                                    <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
+                    <div>
+                        <Pagination page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
+                        {this.state.books.map(book => (
+                            <Paper className="bookPanel" zDepth={3}>
+                                <div className="bookPanelContent">
+                                    <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
+                                    <div className="bookInfo">
+                                        <h3 className="bookTitle">{book.title}</h3>
+                                        <br/>
+                                        <h5 className="authorName">{book.author}</h5>
+                                        <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
+                                    </div>
+                                    <div className="buttons">
+                                        <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
+                                        <RaisedButton>DONATE</RaisedButton>
+                                    </div>
                                 </div>
-                                <div className="buttons">
-                                    <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
-                                    <RaisedButton>DONATE</RaisedButton>
-                                </div>
-                            </div>
-                        </Paper>
-                    ))
-
-
+                            </Paper>
+                        ))}
+                    </div>
             }
         </div>
     )
