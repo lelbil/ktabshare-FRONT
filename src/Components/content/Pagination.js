@@ -23,27 +23,19 @@ class Pagination extends Component {
     render() {
 
         const { page, perPage, count, hasNextPage } = this.props
-        const howManyPages = Math.floor(count / perPage)
+        const howManyPages = Math.floor(count / perPage) + 1
 
         return (
             <div>
-                <IconButton onClick={() => {this.props.pageChange(1)}}><ChevronLeft className="iconButton"/></IconButton>
-                <a onClick={() => {this.props.pageChange(1)}}>1</a>
-                <a onClick={() => {this.props.pageChange(2)}}>2</a>
-                <span> . . . </span>
-                <a onClick={() => {this.props.pageChange(page)}}>{page}</a>
-                <span> . . . </span>
-                <a onClick={() => {this.props.pageChange(howManyPages)}}>{howManyPages}</a>
-                <a onClick={() => {this.props.pageChange(howManyPages + 1)}}>{Math.floor(howManyPages) + 1}</a>
-                <IconButton onClick={() => {this.props.pageChange(page + 1)}}><ChevronRight  className="iconButton"/></IconButton>
-                {/*
-                <a></a>
-                { (page != 1)?  "<" : ""}
-                {"1"}
-
-                {Math.floor(howManyPages) + 1}
-                {">"}
-                */}
+                <IconButton disabled={page === 1} onClick={() => {this.props.pageChange(page - 1)}}><ChevronLeft className="iconButton"/></IconButton>
+                { howManyPages >= 2 && page > 1 && <a disabled={page === 1} onClick={() => {this.props.pageChange(1)}}>1</a>}
+                { howManyPages >= 3 && page > 2 && <a onClick={() => {this.props.pageChange(2)}}>2</a>}
+                { howManyPages >= 4 && page >= 4 && <span> . . . </span>}
+                <a id="currentPage">{page}</a>
+                { howManyPages >= 4 && page < howManyPages - 2 && <span> . . . </span>}
+                {page < (howManyPages - 1) && <a onClick={() => {this.props.pageChange(howManyPages - 1)}}>{howManyPages - 1}</a>}
+                {page < howManyPages && <a onClick={() => {this.props.pageChange(howManyPages)}}>{howManyPages}</a>}
+                <IconButton disabled={!hasNextPage} onClick={() => {this.props.pageChange(page + 1)}}><ChevronRight  className="iconButton"/></IconButton>
             </div>
         )
     }

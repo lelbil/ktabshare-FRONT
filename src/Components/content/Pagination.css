@@ -17,6 +17,11 @@ a {
     background-color: rgba(237, 218, 220, 0.4);
 }
 
+#currentPage {
+    cursor: default;
+    background-color: rgba(237, 218, 220, 0.8);
+}
+
 a:hover, .iconButton:hover {
     background-color: rgba(237, 218, 220, 0.8);
 }

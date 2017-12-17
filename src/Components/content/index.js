@@ -48,7 +48,6 @@ class Content extends Component {
     }
 
     handlePage = (page) => {
-        console.log('Content')
         this.setState({ query: Object.assign(this.state.query, {page})})
     }
 
