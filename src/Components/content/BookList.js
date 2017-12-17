@@ -52,8 +52,8 @@ class BookList extends Component {
     }
 
     componentWillReceiveProps (props) {
-        const {title, author, languages, genres} = props.query
-        fetch(`${getAllBooksEndPoint}?title=${title}&author=${author}&languages=${languages}&genres=${genres}`)
+        const {title, author, languages, genres, page, perPage} = props.query
+        fetch(`${getAllBooksEndPoint}?title=${title}&author=${author}&languages=${languages}&genres=${genres}&page=${page}&perPage=${perPage}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ books: data.books,
@@ -72,7 +72,7 @@ class BookList extends Component {
                     <h1>There have been an error while fetching books</h1>
                 :
                     <div>
-                        <Pagination page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
+                        <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
                                 <div className="bookPanelContent">

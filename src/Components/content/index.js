@@ -20,7 +20,9 @@ class Content extends Component {
                 title: '',
                 author: '',
                 languages: [],
-                genres: []
+                genres: [],
+                page: 1,
+                perPage: 10,
             },
         }
     }
@@ -45,13 +47,18 @@ class Content extends Component {
         this.setState({query: Object.assign(this.state.query, {genres})})
     }
 
+    handlePage = (page) => {
+        console.log('Content')
+        this.setState({ query: Object.assign(this.state.query, {page})})
+    }
+
     render = () => (
         <div id={"content"}>
             <div id={"box2"} className={"box"} style={styles.box2} >
                 <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage} handleGenre={this.handleGenre}/>
             </div>
             <div id={"box3"} className={"box"}>
-                <BookList query={this.state.query}/>
+                <BookList query={this.state.query} handlePage={this.handlePage}/>
             </div>
         </div>
         )
