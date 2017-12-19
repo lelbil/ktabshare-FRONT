@@ -47,8 +47,8 @@ class Content extends Component {
         this.setState({query: Object.assign(this.state.query, {genres})})
     }
 
-    handlePage = (page) => {
-        this.setState({ query: Object.assign(this.state.query, {page})})
+    handlePage = (page, perPage) => {
+        this.setState({ query: Object.assign(this.state.query, {page, perPage})})
     }
 
     render = () => (
