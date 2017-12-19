@@ -36,15 +36,15 @@ class Content extends Component {
     handleLanguage = (language, checked) => {
         if (checked) {
             const languages = _.concat(this.state.query.languages, language)
-            this.setState({ query: Object.assign(this.state.query, {languages}) })
+            this.setState({ query: Object.assign(this.state.query, {languages, page: 1}) })
         } else {
             const languages = _.difference(this.state.query.languages, [language])
-            this.setState({ query: Object.assign(this.state.query, {languages})})
+            this.setState({ query: Object.assign(this.state.query, {languages, page: 1})})
         }
     }
 
     handleGenre = (genres) => {
-        this.setState({query: Object.assign(this.state.query, {genres})})
+        this.setState({query: Object.assign(this.state.query, {genres, page: 1})})
     }
 
     handlePage = (page, perPage) => {
