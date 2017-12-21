@@ -5,6 +5,8 @@ import Pagination from './Pagination'
 
 import './BookList.css'
 
+import { defaultBookCoverImageUrl } from '../../helpers/constants'
+
 const styles = {
     bookCover: {
         boxShadow: "2px 2px 2px #888",
@@ -18,7 +20,6 @@ const styles = {
 }
 
 const getAllBooksEndPoint = "http://localhost:3005/books"
-const defaultBookCoverImageUrl = "https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg"
 
 class BookList extends Component {
     constructor(props) {
