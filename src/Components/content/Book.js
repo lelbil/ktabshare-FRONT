@@ -10,7 +10,6 @@ const styles = {
         height: "50vh",
         marginTop: "50px",
         marginLeft: "30px",
-        float: "left",
         boxShadow: "4px 4px 4px #888",
         borderRadius: "5px",
         border: "solid 1px black",
@@ -18,6 +17,19 @@ const styles = {
     bookDescription: {
         fontSize: "14px",
         textAlign: "justify",
+    },
+    bookContent: {
+        display: "flex",
+    },
+    bookDetails: {
+        padding: "20px 70px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+    },
+    actionButton: {
+        marginRight: "10px",
+        marginLeft: "10px",
     },
 }
 
@@ -38,11 +50,13 @@ class Book extends Component {
             label="Reserve"
             primary={true}
             //onClick={this.closeDialog}
+            style={styles.actionButton}
         />,
         <RaisedButton
             label="Close"
-            primary={true}
+            secondary={true}
             onClick={this.closeDialog}
+            style={styles.actionButton}
         />,
     ]
 
@@ -52,20 +66,33 @@ class Book extends Component {
 
         return (
             <Dialog
-                //title={book.title}
                 actions={this.actions}
                 modal={false}
                 open={this.state.open}
                 onRequestClose={this.closeDialog}
                 contentStyle={{width: '70%', maxWidth:'none'}}
             >
-                    <img alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
-                    <h2>{book.title}</h2>
-                    <h3>{book.author}</h3>
-                    <p>{book.description}</p>
-                    <b>Genres: </b><span>{book.genres}</span>
+                <div style={{display: "flex"}}>
+                    <div>
+                        <img alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
+                    </div>
+                    <div style={styles.bookDetails}>
+                        <p>
+                            <h2>{book.title}</h2>
+                            <h3>{book.author}</h3>
+                        </p>
 
-                    <b>Language: </b><span>{book.language}</span>
+                        <p>{book.description}</p>
+                        <p style={{display: "flex", justifyContent: "space-between"}}>
+                            <span>
+                                <b>Genres: </b><span>{book.genres}</span>
+                            </span>
+                            <span>
+                                <b>Language: </b><span>{book.language}</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </Dialog>
         )
     }
