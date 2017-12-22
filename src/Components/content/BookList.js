@@ -6,6 +6,7 @@ import Pagination from './Pagination'
 import './BookList.css'
 
 import { defaultBookCoverImageUrl } from '../../helpers/constants'
+import Book from "./Book";
 
 const styles = {
     bookCover: {
@@ -28,6 +29,7 @@ class BookList extends Component {
             page: 1,
             perPage: 1,
             books: [],
+            book: null,
             responseStatus: 200,
         }
     }
@@ -66,6 +68,14 @@ class BookList extends Component {
             })
     }
 
+    showBook = (book) => {
+        this.setState({ book })
+    }
+
+    nullBook = () => {
+        this.setState({ book: null })
+    }
+
     render = () => (
         <div id="bookContainer">
             {
@@ -73,6 +83,7 @@ class BookList extends Component {
                     <h1>There have been an error while fetching books</h1>
                 :
                     <div>
+                        <Book book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
@@ -85,8 +96,8 @@ class BookList extends Component {
                                         <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
                                     </div>
                                     <div className="buttons">
-                                        <RaisedButton backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
-                                        <RaisedButton>DONATE</RaisedButton>
+                                        <RaisedButton backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
+                                        <RaisedButton onClick={() => {this.showBook(book)}}>Details</RaisedButton>
                                     </div>
                                 </div>
                             </Paper>

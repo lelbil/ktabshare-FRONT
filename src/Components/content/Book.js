@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { defaultBookCoverImageUrl } from '../../helpers/constants'
+import { capitalizeFirstLetters } from '../../helpers'
 
 const styles = {
     bookCover: {
@@ -37,12 +38,17 @@ class Book extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: true
+            open: true,
         }
     }
 
     closeDialog = () => {
         this.setState({ open: false })
+        this.props.nullBook()
+    }
+
+    componentWillReceiveProps (props) {
+        if (props.book) this.setState({ open: true })
     }
 
     actions = [
@@ -51,6 +57,7 @@ class Book extends Component {
             primary={true}
             //onClick={this.closeDialog}
             style={styles.actionButton}
+            disabled={this.props.book && this.props.book.status === "ready"}
         />,
         <RaisedButton
             label="Close"
@@ -64,7 +71,7 @@ class Book extends Component {
 
         const { book } = this.props
 
-        return (
+        return book ? (
             <Dialog
                 actions={this.actions}
                 modal={false}
@@ -85,21 +92,17 @@ class Book extends Component {
                         <p>{book.description}</p>
                         <p style={{display: "flex", justifyContent: "space-between"}}>
                             <span>
-                                <b>Genres: </b><span>{book.genres}</span>
+                                <b>Genres: </b><span>{book.genres.map(genre => capitalizeFirstLetters(genre))}</span>
                             </span>
                             <span>
-                                <b>Language: </b><span>{book.language}</span>
+                                <b>Language: </b><span>{capitalizeFirstLetters(book.language)}</span>
                             </span>
                         </p>
                     </div>
                 </div>
             </Dialog>
-        )
+        ) : null
     }
-
-
-
 }
-
 
 export default Book

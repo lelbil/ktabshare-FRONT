@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 import SideControls from './SideControls'
 import BookList from './BookList'
-import Book from "./Book";
 
 const styles = {
     box2: {
@@ -11,17 +10,6 @@ const styles = {
         flexDirection: "column",
         justifyContent: "center",
     },
-}
-
-const book = {
-    title: "Harry Potter and the Goblet of Fire",
-    author: "J. K. Rowling",
-    language: "english",
-    description: "Harry Potter and the Goblet of Fire is a fantasy book written by British author J. K. Rowling and the fourth novel in the Harry Potter series.",
-    coverPath: "https://images-na.ssl-images-amazon.com/images/I/41AF6KHRGML.jpg",
-    genres: ["fantasy"],
-    status: "ready",
-
 }
 
 class Content extends Component {
@@ -65,7 +53,6 @@ class Content extends Component {
 
     render = () => (
         <div id={"content"}>
-            <Book book={book}/>
             <div id={"box2"} className={"box"} style={styles.box2} >
                 <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage} handleGenre={this.handleGenre}/>
             </div>
