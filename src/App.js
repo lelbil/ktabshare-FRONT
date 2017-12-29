@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import FlatButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import { Add } from 'material-ui-icons'
+
 import Content from './Components/content'
 
 //Inline styles
@@ -33,16 +36,17 @@ class App extends Component {
                                 <ToolbarTitle text="KtabShare"/>
                                 <ToolbarSeparator/>
                             </div>
+                            <RaisedButton style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
                             <div id={"toolbarControls"}>
                                 <section id={"login"} className={"login"}>
                                     <form action={""} className="login">
                                         <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
                                         <input type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
-                                        <FlatButton primary={true}>Login</FlatButton>
+                                        <RaisedButton primary={true}>Login</RaisedButton>
                                     </form>
                                 </section>
                                 <ToolbarSeparator/>
-                                <FlatButton id={"registerButton"} primary={true}>Register</FlatButton>
+                                <RaisedButton id={"registerButton"} primary={true}>Register</RaisedButton>
                             </div>
                         </ToolbarGroup>
                     </Toolbar>

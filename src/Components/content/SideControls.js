@@ -8,6 +8,7 @@ import Checkbox from 'material-ui/Checkbox'
 import _ from 'lodash'
 
 import { capitalizeFirstLetters } from '../../helpers'
+import { languages, genres } from "../../helpers/constants"
 
 
 import './SideControls.css'
@@ -32,45 +33,6 @@ const styles = {
         color: "wheat",
     },
 }
-
-
-//Language
-const ARABIC = 'arabic'
-const ENGLISH = 'english'
-const FRENCH = 'french'
-const ITALIAN = 'italian'
-const SPANISH = 'spanish'
-const GERMAN = 'german'
-
-const languages = [ ARABIC,  ENGLISH,  FRENCH,  ITALIAN,  SPANISH,  GERMAN]
-
-
-const genres = [
-    "science fiction",
-    "drama",
-    "action and adventure",
-    "romance",
-    "mystery",
-    "horror",
-    "self help",
-    "health",
-    "guide",
-    "travel",
-    "children",
-    "religion",
-    "science",
-    "maths",
-    "poetry",
-    "encyclopedia",
-    "dictionary",
-    "comic",
-    "art",
-    "cookbook",
-    "biography",
-    "autobiography",
-    "fantasy",
-    "other",
-]
 
 class SideControls extends Component {
 
