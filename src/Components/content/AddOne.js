@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField'
 import { blue500 } from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import _ from 'lodash'
 
 import { languages, genres } from '../../helpers/constants'
 import {capitalizeFirstLetters} from "../../helpers/index";
@@ -26,22 +25,6 @@ const styles = {
     },
 }
 
-const actions = [
-    <RaisedButton
-        label="Save"
-        primary={true}
-        //onClick={this.closeDialog}
-        style={styles.actionButton}
-        //disabled={this.props.book && this.props.book.status === "ready"}
-    />,
-    <RaisedButton
-        label="Close"
-        secondary={true}
-        onClick={this.closeDialog}
-        style={styles.actionButton}
-    />,
-]
-
 const languageList = languages.map(language => <MenuItem value={language} primaryText={language}/>)
 
 class AddOne extends Component {
@@ -55,18 +38,38 @@ class AddOne extends Component {
         }
     }
 
+    closeDialog = () => {
+        //TODO: make it save form to local storage before closing.
+        console.log('this was called')
+        this.setState({ open: false })
+    }
+
+    actions = [
+        <RaisedButton
+            label="Save"
+            primary={true}
+            //onClick={this.closeDialog}
+            style={styles.actionButton}
+            //disabled={this.props.book && this.props.book.status === "ready"}
+        />,
+        <RaisedButton
+            label="Close"
+            secondary={true}
+            onClick={this.closeDialog}
+            style={styles.actionButton}
+        />,
+    ]
+
     submitForm = () => {
         alert("ok")
     }
 
-    closeDialog = () => {
-        //TODO: make it save form to local storage before closing.
-        this.setState({ open: false })
-    }
-
     handleLanguageChange = (event, index, language) => this.setState({language});
 
-    handleGenreChange = (event, index, genre) => this.setState({genres: _.concat(this.state.genres, genre)});
+    handleGenreChange = (event, index, genres) => {
+        //if (this.state.genres.length < 5)
+        this.setState({genres});
+    }
 
     render = () => {
 
@@ -75,8 +78,8 @@ class AddOne extends Component {
         return (
             <Dialog
                 title="Add A New Book"
-                actions={actions}
-                modal={false} //TODO: turn back to true
+                actions={this.actions}
+                modal={true} //TODO: turn back to true
                 open={this.state.open}
                 onRequestClose={this.closeDialog}
                 contentStyle={{width: '50%', maxWidth:'none'}}
@@ -102,7 +105,7 @@ class AddOne extends Component {
                         </SelectField>
                         <SelectField
                             multiple={true}
-                            floatingLabelText="Genres"
+                            floatingLabelText="Genres (Max is 5)"
                             value={this.state.genres}
                             onChange={this.handleGenreChange}
                         >

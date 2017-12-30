@@ -3,7 +3,6 @@ import './App.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
 import { Add } from 'material-ui-icons'
 
 import Content from './Components/content'
