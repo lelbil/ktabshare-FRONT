@@ -27,7 +27,7 @@ class Content extends Component {
         }
     }
 
-    handleChange = (field, value) => {//TODO; make this handle all different filters
+    handleChange = (field, value) => {
         const newFilter = {}
         newFilter[field] = value
         this.setState({query: Object.assign(this.state.query, newFilter)})

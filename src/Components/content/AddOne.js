@@ -32,6 +32,9 @@ class AddOne extends Component {
         super(props)
         this.state = {
             open: this.props.addBook,
+            title: "",
+            author: "",
+            description: "",
             imgUrl: null,
             language: "",
             genres: [],
@@ -48,24 +51,31 @@ class AddOne extends Component {
         this.props.close()
     }
 
-    actions = [
-        <RaisedButton
-            label="Save"
-            primary={true}
-            //onClick={this.closeDialog}
-            style={styles.actionButton}
-            //disabled={this.props.book && this.props.book.status === "ready"}
-        />,
-        <RaisedButton
-            label="Close"
-            secondary={true}
-            onClick={this.closeDialog}
-            style={styles.actionButton}
-        />,
-    ]
-
     submitForm = () => {
-        alert("ok")
+        const { title, author, description, genres, language } = this.state
+        const body = {
+            title,
+            author,
+            description,
+            genres,
+            language,
+        }
+
+        fetch("http://localhost:3005/books", {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        })
+            .then(response => response.json())
+            .then(function (data) {
+                console.log('Request succeeded with JSON response', data);
+            })
+            .catch(function (error) {
+                console.log('Request failed', error);
+            });
     }
 
     handleLanguageChange = (event, index, language) => this.setState({language});
@@ -82,21 +92,45 @@ class AddOne extends Component {
         this.setState({ imgUrl: null })
     }
 
+    change = (e) => {
+        const { name, value } = e.target
+        const newBookInfo = {}
+        newBookInfo[name] = value
+        this.setState(newBookInfo)
+    }
+
+    actions = [
+        <RaisedButton
+            label="Save"
+            primary={true}
+            onClick={this.submitForm}
+            style={styles.actionButton}
+            //disabled={this.props.book && this.props.book.status === "ready"}
+            //TODO: disabled when validation fails
+        />,
+        <RaisedButton
+            label="Close"
+            secondary={true}
+            onClick={this.closeDialog}
+            style={styles.actionButton}
+        />,
+    ]
+
     render = () => (
             <Dialog
                 title="Add A New Book"
                 actions={this.actions}
-                modal={true} //TODO: turn back to true
+                modal={true}
                 open={this.state.open}
                 onRequestClose={this.closeDialog}
                 contentStyle={{width: '50%', maxWidth:'none'}}
             >
                 <div style={{ display: "flex", alignContent: "stretch", justifyContent: "stretch", }}>
                     <form style={{ display: "flex", flexDirection: "column", width: "70%" }}>
-                        <TextField fullWidth={true} name="title" floatingLabelText={"Title"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField fullWidth={true} name="author" floatingLabelText={"Author"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField value={this.state.title} onChange={this.change} fullWidth={true} name="title" floatingLabelText={"Title"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField value={this.state.author} onChange={this.change} fullWidth={true} name="author" floatingLabelText={"Author"} floatingLabelFocusStyle={{color: blue500}}/>
                         <TextField fullWidth={true} onChange={this.changeCover} value={this.state.imgUrl} name="imgURL" floatingLabelText={"Image URL"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField
+                        <TextField value={this.state.description} onChange={this.change} name="description"
                             floatingLabelText={"Description"}
                             multiLine={true}
                             fullWidth={true}
