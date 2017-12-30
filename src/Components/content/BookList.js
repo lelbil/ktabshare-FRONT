@@ -7,7 +7,6 @@ import './BookList.css'
 
 import { defaultBookCoverImageUrl } from '../../helpers/constants'
 import Book from "./Book";
-import AddOne from "./AddOne";
 
 const styles = {
     bookCover: {
@@ -22,7 +21,6 @@ const styles = {
 }
 
 const getAllBooksEndPoint = "http://localhost:3005/books"
-//const getAllBooksEndPoint = "https://vimmgsqsvw.localtunnel.me/books"
 
 class BookList extends Component {
     constructor(props) {
@@ -86,7 +84,6 @@ class BookList extends Component {
                 :
                     <div>
                         <Book book={this.state.book} nullBook={() => {this.nullBook()}}/>
-                        <AddOne/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>

@@ -31,17 +31,22 @@ class AddOne extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: true,
+            open: this.props.addBook,
             imgUrl: "https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg",
             language: "",
             genres: [],
         }
     }
 
+    componentWillReceiveProps(props) {
+        if (props.isOpen) this.setState({open: true})
+    }
+
     closeDialog = () => {
         //TODO: make it save form to local storage before closing.
         console.log('this was called')
         this.setState({ open: false })
+        this.props.close()
     }
 
     actions = [
@@ -67,7 +72,6 @@ class AddOne extends Component {
     handleLanguageChange = (event, index, language) => this.setState({language});
 
     handleGenreChange = (event, index, genres) => {
-        //if (this.state.genres.length < 5)
         this.setState({genres});
     }
 

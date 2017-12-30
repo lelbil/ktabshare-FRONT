@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import { Add } from 'material-ui-icons'
+import AddOne from './Components/content/AddOne'
 
 import Content from './Components/content'
 
@@ -23,10 +24,32 @@ const styles = {
 }
 
 class App extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            addBook: false,
+        }
+    }
+
+    addABook = () => {
+        this.setState({
+            addBook: true,
+        })
+    }
+
+    closeAddOneDialog = () => {
+        this.setState({
+            addBook: false,
+        })
+    }
+
+
   render() {
     return (
       <div className="App">
         <MuiThemeProvider>
+            <AddOne isOpen={this.state.addBook} close={this.closeAddOneDialog} />
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
                     <Toolbar style={styles.toolbar} id={"toolbar"}>
@@ -35,7 +58,7 @@ class App extends Component {
                                 <ToolbarTitle text="KtabShare"/>
                                 <ToolbarSeparator/>
                             </div>
-                            <RaisedButton style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
+                            <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
                             <div id={"toolbarControls"}>
                                 <section id={"login"} className={"login"}>
                                     <form action={""} className="login">
