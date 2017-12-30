@@ -7,6 +7,7 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Snackbar from 'material-ui/Snackbar'
 import joi from 'joi'
+import _ from 'lodash'
 
 import { defaultBookCoverImageUrl, languages, genres } from '../../helpers/constants'
 import {capitalizeFirstLetters} from "../../helpers/index"
@@ -35,12 +36,22 @@ const validationMapping = {
     description: joi.string().allow(["", null]).max(1000),
 }
 
+const postBookValidation = joi.object().keys({
+    title: joi.string().max(255).min(3).required(),
+    author: joi.string().max(55).min(3).allow(null),
+    imgUrl: joi.string().max(255).allow(null),
+    language: joi.string().valid(languages).allow(null).required(),
+    genres: joi.array().items(joi.string().max(50).valid(genres)).allow([]).required(),
+    description: joi.string().allow(["", null]).max(1000),
+})
+
 class AddOne extends Component {
     constructor(props) {
         super(props)
         this.state = {
             open: this.props.addBook,
             snackBarOpen: false,
+            valid: false,
             title: "",
             author: "",
             description: "",
@@ -90,7 +101,7 @@ class AddOne extends Component {
         })
             .then(response => {
                 if (response.status === 201) {
-                    this.setState({ snackBarOpen: true })
+                    this.setState({ snackBarOpen: true, title: "", author: "", description: "", language: "", genres: [] })
                     this.closeDialog()
                 }
                 else {
@@ -123,31 +134,31 @@ class AddOne extends Component {
         newBookInfo[name] = value
         const newErrorObject = {}
         newErrorObject[name] = joi.validate(value, validationMapping[name]).error && joi.validate(value, validationMapping[name]).error.message
-        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject)} ))
+        const validationObject = _.pick(this.state, ['title', 'author', 'imgUrl', 'language', 'genres', 'description'])
+        const valid = ! joi.validate(validationObject, postBookValidation).error
+        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject), valid} ))
     }
-
-    actions = [
-        <RaisedButton
-            label="Save"
-            primary={true}
-            onClick={this.submitForm}
-            style={styles.actionButton}
-            //disabled={this.props.book && this.props.book.status === "ready"}
-            //TODO: disabled when validation fails
-        />,
-        <RaisedButton
-            label="Close"
-            secondary={true}
-            onClick={this.closeDialog}
-            style={styles.actionButton}
-        />,
-    ]
 
     render = () => (
         <div>
             <Dialog
                 title="Add A New Book"
-                actions={this.actions}
+                actions={[
+                    <RaisedButton
+                        label="Save"
+                        isValid={false}
+                        primary={true}
+                        onClick={this.submitForm}
+                        style={styles.actionButton}
+                        disabled={this.state ? ! this.state.valid : true}
+                    />,
+                    <RaisedButton
+                        label="Close"
+                        secondary={true}
+                        onClick={this.closeDialog}
+                        style={styles.actionButton}
+                    />,
+                ]}
                 modal={true}
                 open={this.state.open}
                 onRequestClose={this.closeDialog}
