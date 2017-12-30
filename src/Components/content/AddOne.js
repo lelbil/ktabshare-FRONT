@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField'
 import { blue500 } from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import joi from 'joi'
 
 import { defaultBookCoverImageUrl, languages, genres } from '../../helpers/constants'
 import {capitalizeFirstLetters} from "../../helpers/index"
@@ -27,6 +28,12 @@ const styles = {
 
 const languageList = languages.map(language => <MenuItem value={language} primaryText={language}/>)
 
+const validationMapping = {
+    title: joi.string().max(255).min(3).required(),
+    author: joi.string().min(3).max(55).allow(null),
+    description: joi.string().allow(["", null]).max(1000),
+}
+
 class AddOne extends Component {
     constructor(props) {
         super(props)
@@ -38,6 +45,11 @@ class AddOne extends Component {
             imgUrl: null,
             language: "",
             genres: [],
+            errors: {
+                title: null,
+                author: null,
+                description: null,
+            }
         }
     }
 
@@ -96,7 +108,9 @@ class AddOne extends Component {
         const { name, value } = e.target
         const newBookInfo = {}
         newBookInfo[name] = value
-        this.setState(newBookInfo)
+        const newErrorObject = {}
+        newErrorObject[name] = joi.validate(value, validationMapping[name]).error && joi.validate(value, validationMapping[name]).error.message
+        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject)} ))
     }
 
     actions = [
@@ -127,10 +141,10 @@ class AddOne extends Component {
             >
                 <div style={{ display: "flex", alignContent: "stretch", justifyContent: "stretch", }}>
                     <form style={{ display: "flex", flexDirection: "column", width: "70%" }}>
-                        <TextField value={this.state.title} onChange={this.change} fullWidth={true} name="title" floatingLabelText={"Title"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField value={this.state.author} onChange={this.change} fullWidth={true} name="author" floatingLabelText={"Author"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField errorText={this.state.errors.title} value={this.state.title} onChange={this.change} fullWidth={true} name="title" floatingLabelText={"Title"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField errorText={this.state.errors.author} value={this.state.author} onChange={this.change} fullWidth={true} name="author" floatingLabelText={"Author"} floatingLabelFocusStyle={{color: blue500}}/>
                         <TextField fullWidth={true} onChange={this.changeCover} value={this.state.imgUrl} name="imgURL" floatingLabelText={"Image URL"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField value={this.state.description} onChange={this.change} name="description"
+                        <TextField errorText={this.state.errors.description} value={this.state.description} onChange={this.change} name="description"
                             floatingLabelText={"Description"}
                             multiLine={true}
                             fullWidth={true}
