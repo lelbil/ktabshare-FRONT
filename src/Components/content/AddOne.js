@@ -6,8 +6,8 @@ import { blue500 } from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import { languages, genres } from '../../helpers/constants'
-import {capitalizeFirstLetters} from "../../helpers/index";
+import { defaultBookCoverImageUrl, languages, genres } from '../../helpers/constants'
+import {capitalizeFirstLetters} from "../../helpers/index"
 
 const styles = {
     bookCover: {
@@ -32,7 +32,7 @@ class AddOne extends Component {
         super(props)
         this.state = {
             open: this.props.addBook,
-            imgUrl: "https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg",
+            imgUrl: null,
             language: "",
             genres: [],
         }
@@ -44,7 +44,6 @@ class AddOne extends Component {
 
     closeDialog = () => {
         //TODO: make it save form to local storage before closing.
-        console.log('this was called')
         this.setState({ open: false })
         this.props.close()
     }
@@ -75,11 +74,15 @@ class AddOne extends Component {
         this.setState({genres});
     }
 
-    render = () => {
+    changeCover = (e) => {
+        this.setState({imgUrl: e.target.value})
+    }
 
-        //const { genres } = this.state
+    nonWorkingCover = () => {
+        this.setState({ imgUrl: null })
+    }
 
-        return (
+    render = () => (
             <Dialog
                 title="Add A New Book"
                 actions={this.actions}
@@ -92,7 +95,7 @@ class AddOne extends Component {
                     <form style={{ display: "flex", flexDirection: "column", width: "70%" }}>
                         <TextField fullWidth={true} name="title" floatingLabelText={"Title"} floatingLabelFocusStyle={{color: blue500}}/>
                         <TextField fullWidth={true} name="author" floatingLabelText={"Author"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField fullWidth={true} name="imgURL" floatingLabelText={"Image URL"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField fullWidth={true} onChange={this.changeCover} value={this.state.imgUrl} name="imgURL" floatingLabelText={"Image URL"} floatingLabelFocusStyle={{color: blue500}}/>
                         <TextField
                             floatingLabelText={"Description"}
                             multiLine={true}
@@ -109,7 +112,7 @@ class AddOne extends Component {
                         </SelectField>
                         <SelectField
                             multiple={true}
-                            floatingLabelText="Genres (Max is 5)"
+                            floatingLabelText="Genres"
                             value={this.state.genres}
                             onChange={this.handleGenreChange}
                         >
@@ -117,12 +120,11 @@ class AddOne extends Component {
                         </SelectField>
                     </form>
                     <div>
-                        <img alt={"Preview of the book cover"} src={"https://islandpress.org/sites/default/files/400px%20x%20600px-r01BookNotPictured.jpg"} style={styles.bookCover}/>
+                        <img onError={this.nonWorkingCover} alt={"Preview of the book cover"} src={this.state.imgUrl || defaultBookCoverImageUrl} style={styles.bookCover}/>
                     </div>
                 </div>
             </Dialog>
         )
-    }
 }
 
 export default AddOne
