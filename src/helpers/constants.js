@@ -35,6 +35,6 @@ const genres = [
     "autobiography",
     "fantasy",
     "other",
-]
+].sort()
 
 export { defaultBookCoverImageUrl, languages, genres }
