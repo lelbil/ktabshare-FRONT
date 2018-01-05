@@ -28,7 +28,7 @@ const styles = {
     },
 }
 
-const languageList = languages.map(language => <MenuItem value={language} primaryText={language}/>)
+const languageList = languages.map(language => <MenuItem value={language} primaryText={capitalizeFirstLetters(language)}/>)
 
 const validationMapping = {
     title: joi.string().max(255).min(3).required(),
