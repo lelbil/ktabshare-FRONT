@@ -49,7 +49,7 @@ class AddOne extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: this.props.addBook,
+            open: false,
             snackBarOpen: false,
             valid: false,
             title: "",
@@ -71,7 +71,6 @@ class AddOne extends Component {
     }
 
     closeDialog = () => {
-        //TODO: make it save form to local storage before closing.
         this.setState({ open: false })
         this.props.close()
     }

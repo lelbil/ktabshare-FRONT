@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import { Add } from 'material-ui-icons'
 import AddOne from './Components/content/AddOne'
+import Register from './Components/content/Register'
 
 import Content from './Components/content'
 
@@ -29,6 +30,8 @@ class App extends Component {
         super(props)
         this.state = {
             addBook: false,
+            register: false,
+            registerAnchor: null,
         }
     }
 
@@ -44,12 +47,25 @@ class App extends Component {
         })
     }
 
+    signup = (event) => {
+        this.setState({
+            register: true,
+            registerAnchor: event.target,
+        })
+    }
+
+    closeRegisterPopover = () => {
+        this.setState({
+            register: false,
+        })
+    }
 
   render() {
     return (
       <div className="App">
         <MuiThemeProvider>
             <AddOne isOpen={this.state.addBook} close={this.closeAddOneDialog} />
+            <Register isOpen={this.state.register} close={this.closeRegisterPopover} anchorEl={this.state.registerAnchor} />
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
                     <Toolbar style={styles.toolbar} id={"toolbar"}>
@@ -68,7 +84,7 @@ class App extends Component {
                                     </form>
                                 </section>
                                 <ToolbarSeparator/>
-                                <RaisedButton id={"registerButton"} primary={true}>Register</RaisedButton>
+                                <RaisedButton id={"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
                             </div>
                         </ToolbarGroup>
                     </Toolbar>
