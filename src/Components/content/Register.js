@@ -34,13 +34,15 @@ class Register extends Component {
             onRequestClose={this.closePopover}
             animation={PopoverAnimationVertical}
         >
-            <form style={{ display: "flex", flexDirection: "column", width: "70%" }}>
-                <TextField value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
-                <TextField value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
-                <TextField type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                <TextField type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                <RaisedButton primary={true}>Register</RaisedButton>
-            </form>
+            <div style={{ width: "300px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <form style={{ display: "flex", flexDirection: "column", width: "90%", marginBottom: "20px", }}>
+                    <TextField value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
+                    <TextField value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
+                    <TextField type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                    <TextField type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                    <RaisedButton primary={true}>Register</RaisedButton>
+                </form>
+            </div>
         </Popover>
     }
 
