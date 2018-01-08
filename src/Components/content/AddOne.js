@@ -133,9 +133,11 @@ class AddOne extends Component {
         newBookInfo[name] = value
         const newErrorObject = {}
         newErrorObject[name] = joi.validate(value, validationMapping[name]).error && joi.validate(value, validationMapping[name]).error.message
-        const validationObject = _.pick(this.state, ['title', 'author', 'imgUrl', 'language', 'genres', 'description'])
-        const valid = ! joi.validate(validationObject, postBookValidation).error
-        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject), valid} ))
+        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject)}), () => {
+            const validationObject = _.pick(this.state, ['title', 'author', 'imgUrl', 'language', 'genres', 'description'])
+            const valid = ! joi.validate(validationObject, postBookValidation).error
+            this.setState({ valid })
+        })
     }
 
     render = () => (
