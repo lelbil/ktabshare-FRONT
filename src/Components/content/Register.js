@@ -40,6 +40,33 @@ class Register extends Component {
         if (props.isOpen) this.setState({open: true})
     }
 
+    signUp = () => {
+        const { email, username, password, passwordConf } = this.state
+        const body = {
+            email, username, password, passwordConf,
+        }
+
+        fetch('http://localhost:3005/users', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        }).then(response => {
+            if (response.status === 201) {
+                //TODO: add a snackbar and open it here
+                this.closePopover()
+            }
+            else {
+                alert('there has been an error, no user created!')
+            }
+        })
+            .catch(function (error) {
+                console.log('Request failed', error);
+            });
+    }
+
     closePopover = () => {
         this.setState({ open: false })
         this.props.close()
@@ -78,7 +105,7 @@ class Register extends Component {
                     <TextField errorText={this.state.errors.username} onChange={this.change} value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
                     <TextField errorText={this.state.errors.password} onChange={this.change} type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
                     <TextField errorText={this.state.errors.passwordConf} onChange={this.change} type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                    <RaisedButton style={{margin: "10px",}} primary={true} disabled={!this.state.valid}>Register</RaisedButton>
+                    <RaisedButton onClick={this.signUp} style={{margin: "10px",}} primary={true} disabled={!this.state.valid}>Register</RaisedButton>
                 </form>
             </div>
         </Popover>
