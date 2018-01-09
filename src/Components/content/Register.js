@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Snackbar from 'material-ui/Snackbar'
 import Popover, { PopoverAnimationVertical } from 'material-ui/Popover'
 import TextField from 'material-ui/TextField'
 import { blue500 } from 'material-ui/styles/colors'
@@ -32,6 +33,7 @@ class Register extends Component {
                 passwordConf: null,
             },
             valid: false,
+            snackBarOpen: false,
         }
     }
 
@@ -55,8 +57,9 @@ class Register extends Component {
             body: JSON.stringify(body),
         }).then(response => {
             if (response.status === 201) {
-                //TODO: add a snackbar and open it here
+                this.setState({ snackBarOpen: true })
                 this.closePopover()
+                //TODO: login user after he has signed up
             }
             else {
                 alert('there has been an error, no user created!')
@@ -65,6 +68,10 @@ class Register extends Component {
             .catch(function (error) {
                 console.log('Request failed', error);
             });
+    }
+
+    closingSnackBar = () => {
+        this.setState({snackBarOpen: false})
     }
 
     closePopover = () => {
@@ -93,22 +100,30 @@ class Register extends Component {
     }
 
     render () {
-        return <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            onRequestClose={this.closePopover}
-            animation={PopoverAnimationVertical}
-        >
-            <div style={{ width: "300px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <form style={{ display: "flex", flexDirection: "column", width: "90%", marginBottom: "20px", }}>
-                    <TextField errorText={this.state.errors.email} onChange={this.change} value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
-                    <TextField errorText={this.state.errors.username} onChange={this.change} value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
-                    <TextField errorText={this.state.errors.password} onChange={this.change} type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                    <TextField errorText={this.state.errors.passwordConf} onChange={this.change} type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                    <RaisedButton onClick={this.signUp} style={{margin: "10px",}} primary={true} disabled={!this.state.valid}>Register</RaisedButton>
-                </form>
-            </div>
-        </Popover>
+        return <React.Fragment>
+            <Popover
+                open={this.state.open}
+                anchorEl={this.state.anchorEl}
+                onRequestClose={this.closePopover}
+                animation={PopoverAnimationVertical}
+            >
+                <div style={{ width: "300px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <form style={{ display: "flex", flexDirection: "column", width: "90%", marginBottom: "20px", }}>
+                        <TextField errorText={this.state.errors.email} onChange={this.change} value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField errorText={this.state.errors.username} onChange={this.change} value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField errorText={this.state.errors.password} onChange={this.change} type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField errorText={this.state.errors.passwordConf} onChange={this.change} type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <RaisedButton onClick={this.signUp} style={{margin: "10px",}} primary={true} disabled={!this.state.valid}>Register</RaisedButton>
+                    </form>
+                </div>
+            </Popover>
+            <Snackbar
+                open={this.state.snackBarOpen}
+                message="User registered. Welcome aboard! :)"
+                autoHideDuration={4000}
+                onRequestClose={this.closingSnackBar}
+            />
+        </React.Fragment>
     }
 
 }
