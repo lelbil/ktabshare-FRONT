@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { instanceOf } from 'prop-types'
+import { withCookies, Cookies } from 'react-cookie'
 import './App.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -26,13 +28,25 @@ const styles = {
 
 class App extends Component {
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    }
+
     constructor(props) {
         super(props)
         this.state = {
             addBook: false,
             register: false,
             registerAnchor: null,
+            logged: false,
         }
+    }
+
+    componentWillMount() {
+        const { cookies } = this.props
+        this.setState({
+            logged: cookies.get('logged') || false
+        })
     }
 
     addABook = () => {
@@ -52,6 +66,11 @@ class App extends Component {
             register: true,
             registerAnchor: event.target,
         })
+    }
+
+    login = () => {
+        const { cookies } = this.props
+        cookies.set('logged', true)
     }
 
     closeRegisterPopover = () => {
@@ -76,13 +95,13 @@ class App extends Component {
                             </div>
                             <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
                             <div id={"toolbarControls"}>
-                                <section id={"login"} className={"login"}>
+                                {!this.state.logged && <section id={"login"} className={"login"}>
                                     <form action={""} className="login">
                                         <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
                                         <input type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
-                                        <RaisedButton primary={true}>Login</RaisedButton>
+                                        <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
                                     </form>
-                                </section>
+                                </section>}
                                 <ToolbarSeparator/>
                                 <RaisedButton id={"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
                             </div>
@@ -98,4 +117,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);

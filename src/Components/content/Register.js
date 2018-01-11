@@ -59,7 +59,7 @@ class Register extends Component {
             if (response.status === 201) {
                 this.setState({ snackBarOpen: true })
                 this.closePopover()
-                //TODO: login user after he has signed up
+                //TODO: log user in after he has signed up
             }
             else {
                 alert('there has been an error, no user created!')
