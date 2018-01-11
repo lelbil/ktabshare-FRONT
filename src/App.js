@@ -68,9 +68,23 @@ class App extends Component {
         })
     }
 
+    changedLoggedState = () => {
+        const { cookies } = this.props
+        this.setState({
+            logged: cookies.get('logged') || false,
+        })
+    }
+
     login = () => {
         const { cookies } = this.props
         cookies.set('logged', true)
+        this.changedLoggedState()
+    }
+
+    logout = () => {
+        const { cookies } = this.props
+        cookies.remove('logged')
+        this.changedLoggedState()
     }
 
     closeRegisterPopover = () => {
@@ -95,15 +109,22 @@ class App extends Component {
                             </div>
                             <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
                             <div id={"toolbarControls"}>
-                                {!this.state.logged && <section id={"login"} className={"login"}>
-                                    <form action={""} className="login">
-                                        <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
-                                        <input type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
-                                        <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
-                                    </form>
-                                </section>}
-                                <ToolbarSeparator/>
-                                <RaisedButton id={"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
+                                {!this.state.logged ?
+                                    <React.Fragment>
+                                        <section id={"login"} className={"login"}>
+                                            <form action={""} className="login">
+                                                <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
+                                                <input type={"password"} placeholder={"Password"}
+                                                       style={styles.passwordInput}/>
+                                                <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
+                                            </form>
+                                        </section>
+                                        <ToolbarSeparator/>
+                                        <RaisedButton id = {"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
+                                    </React.Fragment>
+                                    :
+                                    <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
+                                }
                             </div>
                         </ToolbarGroup>
                     </Toolbar>
