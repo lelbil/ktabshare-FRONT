@@ -39,14 +39,13 @@ class App extends Component {
             register: false,
             registerAnchor: null,
             logged: false,
+            username: "",
+            password: "",
         }
     }
 
     componentWillMount() {
-        const { cookies } = this.props
-        this.setState({
-            logged: cookies.get('logged') || false
-        })
+        this.changeLoggedState()
     }
 
     addABook = () => {
@@ -68,7 +67,7 @@ class App extends Component {
         })
     }
 
-    changedLoggedState = () => {
+    changeLoggedState = () => {
         const { cookies } = this.props
         this.setState({
             logged: cookies.get('logged') || false,
@@ -76,21 +75,43 @@ class App extends Component {
     }
 
     login = () => {
-        const { cookies } = this.props
-        cookies.set('logged', true)
-        this.changedLoggedState()
+        const { username, password } = this.state
+
+        fetch('http://localhost:3005/users/login', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username, password}),
+        })
+            .then(response => {
+                if (response.status !== 200) {
+                    alert('login failed')
+                } else {
+                    this.props.cookies.set('logged', true)
+                    this.changeLoggedState()
+                }
+            })
+            .catch(error => console.log('Unexpected error when login: ', error))
     }
 
     logout = () => {
-        const { cookies } = this.props
-        cookies.remove('logged')
-        this.changedLoggedState()
+        this.props.cookies.remove('logged')
+        this.changeLoggedState()
     }
 
     closeRegisterPopover = () => {
         this.setState({
             register: false,
         })
+    }
+
+    change = e => {
+        const {name, value} = e.target
+        const newStateObject = {}
+        newStateObject[name] = value
+        this.setState(newStateObject)
     }
 
   render() {
@@ -113,9 +134,8 @@ class App extends Component {
                                     <React.Fragment>
                                         <section id={"login"} className={"login"}>
                                             <form action={""} className="login">
-                                                <input type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
-                                                <input type={"password"} placeholder={"Password"}
-                                                       style={styles.passwordInput}/>
+                                                <input name="username" value={this.state.username} onChange={this.change} type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
+                                                <input name="password" value={this.state.password} onChange={this.change} type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
                                                 <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
                                             </form>
                                         </section>
