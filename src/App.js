@@ -94,12 +94,28 @@ class App extends Component {
                     this.changeLoggedState()
                 }
             })
-            .catch(error => console.log('Unexpected error when login: ', error))
+            .catch(error => console.error('Unexpected error when login: ', error))
     }
 
     logout = () => {
-        this.props.cookies.remove('logged')
-        this.changeLoggedState()
+        fetch('http://localhost:3005/users/logout', {
+            method: 'post',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (response.status !== 200) {
+                    console.error('Something went wrong when logging out, time to debug!')
+                } else {
+                    this.props.cookies.remove('logged')
+                    this.changeLoggedState()
+                }
+            })
+            .catch(error => console.error('Unexpected error when login: ', error))
+
     }
 
     closeRegisterPopover = () => {
