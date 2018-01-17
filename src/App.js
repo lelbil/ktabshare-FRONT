@@ -79,6 +79,7 @@ class App extends Component {
 
         fetch('http://localhost:3005/users/login', {
             method: 'post',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ class App extends Component {
         })
             .then(response => {
                 if (response.status !== 200) {
-                    alert('login failed')
+                    alert('login failed') //TODO: more user friendly please!!
                 } else {
                     this.props.cookies.set('logged', true)
                     this.changeLoggedState()
@@ -128,7 +129,7 @@ class App extends Component {
                                 <ToolbarTitle text="KtabShare"/>
                                 <ToolbarSeparator/>
                             </div>
-                            <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>
+                            { this.state.logged && <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>}
                             <div id={"toolbarControls"}>
                                 {!this.state.logged ?
                                     <React.Fragment>
