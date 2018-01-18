@@ -42,6 +42,8 @@ class Register extends Component {
         if (props.isOpen) this.setState({open: true})
     }
 
+    onRegister = this.props.onRegister
+
     signUp = () => {
         const { email, username, password, passwordConf } = this.state
         const body = {
@@ -59,7 +61,7 @@ class Register extends Component {
             if (response.status === 201) {
                 this.setState({ snackBarOpen: true })
                 this.closePopover()
-                //TODO: log user in after he has signed up
+                this.onRegister()
             }
             else {
                 alert('there has been an error, no user created!')

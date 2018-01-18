@@ -68,10 +68,14 @@ class App extends Component {
     }
 
     changeLoggedState = () => {
-        const { cookies } = this.props
         this.setState({
-            logged: cookies.get('logged') || false,
+            logged: this.props.cookies.get('logged') || false,
         })
+    }
+
+    onRegister = () => {
+        this.props.cookies.set('logged', true)
+        this.changeLoggedState()
     }
 
     login = () => {
@@ -136,7 +140,7 @@ class App extends Component {
       <div className="App">
         <MuiThemeProvider>
             <AddOne isOpen={this.state.addBook} close={this.closeAddOneDialog} />
-            <Register isOpen={this.state.register} close={this.closeRegisterPopover} anchorEl={this.state.registerAnchor} />
+            <Register isOpen={this.state.register} onRegister={this.onRegister} close={this.closeRegisterPopover} anchorEl={this.state.registerAnchor} />
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
                     <Toolbar style={styles.toolbar} id={"toolbar"}>
