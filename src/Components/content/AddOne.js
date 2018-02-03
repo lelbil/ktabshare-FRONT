@@ -92,6 +92,7 @@ class AddOne extends Component {
 
         fetch("http://localhost:3005/books", {
             method: 'post',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -164,7 +164,10 @@ class App extends Component {
                                         <RaisedButton id = {"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
                                     </React.Fragment>
                                     :
-                                    <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
+                                    <React.Fragment>
+                                        <RaisedButton primary={true}>See My Reservations</RaisedButton>
+                                        <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
+                                    </React.Fragment>
                                 }
                             </div>
                         </ToolbarGroup>
