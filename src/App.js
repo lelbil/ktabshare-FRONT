@@ -39,6 +39,7 @@ class App extends Component {
             register: false,
             registerAnchor: null,
             logged: false,
+            reservations: true,
             username: "",
             password: "",
         }
@@ -135,6 +136,10 @@ class App extends Component {
         this.setState(newStateObject)
     }
 
+    seeReservations = () => {
+        this.setState({ reservations: !this.state.reservations })
+    }
+
   render() {
     return (
       <div className="App">
@@ -165,7 +170,8 @@ class App extends Component {
                                     </React.Fragment>
                                     :
                                     <React.Fragment>
-                                        <RaisedButton primary={true}>See My Reservations</RaisedButton>
+                                        <RaisedButton onClick={this.seeReservations} primary={true}>See {this.state.reservations? "My Reservations": "All books"}</RaisedButton>
+                                        <ToolbarSeparator/>
                                         <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
                                     </React.Fragment>
                                 }
@@ -173,9 +179,8 @@ class App extends Component {
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <Content/>
+                <Content reservations={this.state.reservations}/>
             </div>
-
         </MuiThemeProvider>
       </div>
     );

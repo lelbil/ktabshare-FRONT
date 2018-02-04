@@ -57,7 +57,7 @@ class Content extends Component {
                 <SideControls handleChange={this.handleChange} handleLanguage={this.handleLanguage} handleGenre={this.handleGenre}/>
             </div>
             <div id={"box3"} className={"box"}>
-                <BookList query={this.state.query} handlePage={this.handlePage}/>
+                <BookList query={this.state.query} handlePage={this.handlePage} reservations={this.props.reservations}/>
             </div>
         </div>
         )
