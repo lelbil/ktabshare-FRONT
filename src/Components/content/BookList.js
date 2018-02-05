@@ -74,12 +74,31 @@ class BookList extends Component {
             })
     }
 
-    showBook = (book) => {
+    showBook = book => {
         this.setState({ book })
     }
 
     nullBook = () => {
         this.setState({ book: null })
+    }
+
+    reserveBook = bookId => {
+        const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/reservation`
+
+        fetch(reserveBookEndpoint, {
+            credentials: 'include',
+            method: 'put',
+        })
+            .then(response => {
+                if (response.status === 200 || response.status === 204) {
+                    alert('book reserved successfully')
+                    //TODO: Add a Snackbar instead of alert
+                    //TODO: Make sure the book goes out of the list
+                } else {
+                    alert('There was an error, not reserved') //TODO: be more friendly mate, no one likes alerts
+                }
+            })
+
     }
 
     render = () => (
@@ -89,9 +108,9 @@ class BookList extends Component {
                     <h1>There have been an error while fetching books</h1>
                 :
                     <div>
-                        <Book book={this.state.book} nullBook={() => {this.nullBook()}}/>
+                        <Book reservation={() => {this.reserveBook(this.state.book._id)}} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
-                        {this.state.books.map(book => (
+                        {this.state.books && this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
                                 <div className="bookPanelContent">
                                     <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
@@ -102,7 +121,11 @@ class BookList extends Component {
                                         <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
                                     </div>
                                     <div className="buttons">
-                                        <RaisedButton backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
+                                        {!this.props.reservations ?
+                                            <RaisedButton backgroundColor="rgb(237, 218, 220)">Cancel Reservation</RaisedButton>
+                                                :
+                                            <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
+                                        }
                                         <RaisedButton onClick={() => {this.showBook(book)}}>Details</RaisedButton>
                                     </div>
                                 </div>

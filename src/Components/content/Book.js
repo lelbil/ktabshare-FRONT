@@ -55,7 +55,7 @@ class Book extends Component {
         <RaisedButton
             label="Reserve"
             primary={true}
-            //onClick={this.closeDialog}
+            onClick={this.props.reservation}
             style={styles.actionButton}
             disabled={this.props.book && this.props.book.status === "ready"}
         />,
