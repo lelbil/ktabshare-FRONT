@@ -134,6 +134,10 @@ class BookList extends Component {
         })
     }
 
+    dialogReservation = bookId => {
+        this.props.reservations? this.reserveBook(bookId) : this.cancelBookReservation(bookId)
+    }
+
     render = () => (
         <div id="bookContainer">
             {
@@ -144,16 +148,16 @@ class BookList extends Component {
                         <Snackbar
                             open={this.state.reservationSnackBar}
                             message="Book reserved :D"
-                            autoHideDuration={2000}
+                            autoHideDuration={4000}
                             onRequestClose={this.closingSnackBar}
                         />
                         <Snackbar
                             open={this.state.cancelSnackBar}
                             message="Reservation canceled!"
-                            autoHideDuration={2000}
+                            autoHideDuration={4000}
                             onRequestClose={this.closingSnackBar}
                         />
-                        <Book reservation={() => {this.reserveBook(this.state.book._id)}} book={this.state.book} nullBook={() => {this.nullBook()}}/>
+                        <Book isReserved={this.props.reservations} reservation={() => this.dialogReservation(this.state.book._id)} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books && this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>

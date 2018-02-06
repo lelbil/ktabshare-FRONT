@@ -51,21 +51,6 @@ class Book extends Component {
         if (props.book) this.setState({ open: true })
     }
 
-    actions = [
-        <RaisedButton
-            label="Reserve"
-            primary={true}
-            onClick={this.props.reservation}
-            style={styles.actionButton}
-            disabled={this.props.book && this.props.book.status === "ready"}
-        />,
-        <RaisedButton
-            label="Close"
-            secondary={true}
-            onClick={this.closeDialog}
-            style={styles.actionButton}
-        />,
-    ]
 
     render = () => {
 
@@ -73,7 +58,20 @@ class Book extends Component {
 
         return book ? (
             <Dialog
-                actions={this.actions}
+                actions={[
+                    <RaisedButton
+                        label={this.props.isReserved? "Reserve" : "Cancel Reservation"}
+                        primary={true}
+                        onClick={this.props.reservation}
+                        style={styles.actionButton}
+                    />,
+                    <RaisedButton
+                        label="Close"
+                        secondary={true}
+                        onClick={this.closeDialog}
+                        style={styles.actionButton}
+                    />,
+                ]}
                 modal={false}
                 open={this.state.open}
                 onRequestClose={this.closeDialog}
