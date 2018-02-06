@@ -56,6 +56,7 @@ class BookList extends Component {
                     perPage: data.perPage,
                     count: data.count,
                     hasNextPage: data.hasNextPage,
+                    reservations: false,
                 })
             });
     }
@@ -63,20 +64,22 @@ class BookList extends Component {
     componentWillReceiveProps (props) {
         const {title, author, languages, genres, page, perPage} = props.query
 
-        const link = this.props.reservations ? seeReservationsEndPoint : getAllBooksEndPoint
+        this.setState({reservations: this.props.reservations}, () => {
+            const link = this.props.reservations ? seeReservationsEndPoint : getAllBooksEndPoint
 
-        fetch(`${link}?title=${title}&author=${author}&languages=${languages}&genres=${genres}&page=${page}&perPage=${perPage}`, {
-            credentials: 'include',
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ books: data.books,
-                    page: data.page,
-                    perPage: data.perPage,
-                    count: data.count,
-                    hasNextPage: data.hasNextPage,
-                })
+            fetch(`${link}?title=${title}&author=${author}&languages=${languages}&genres=${genres}&page=${page}&perPage=${perPage}`, {
+                credentials: 'include',
             })
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({ books: data.books,
+                        page: data.page,
+                        perPage: data.perPage,
+                        count: data.count,
+                        hasNextPage: data.hasNextPage,
+                    })
+                })
+        })
     }
 
     showBook = book => {
@@ -135,7 +138,7 @@ class BookList extends Component {
     }
 
     dialogReservation = bookId => {
-        this.props.reservations? this.reserveBook(bookId) : this.cancelBookReservation(bookId)
+        !this.props.reservations? this.reserveBook(bookId) : this.cancelBookReservation(bookId)
     }
 
     render = () => (
@@ -159,6 +162,7 @@ class BookList extends Component {
                         />
                         <Book isReserved={this.props.reservations} reservation={() => this.dialogReservation(this.state.book._id)} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
+                        {/*<h1 style={{color: 'red'}}>{this.props.reservations? "RESERVATIONS": "NO"}</h1>*/}
                         {this.state.books && this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
                                 <div className="bookPanelContent">
@@ -170,7 +174,7 @@ class BookList extends Component {
                                         <p className="bookDescription" style={styles.bookDescription}>{book.description}</p>
                                     </div>
                                     <div className="buttons">
-                                        {!this.props.reservations ?
+                                        {this.props.reservations ?
                                             <RaisedButton onClick={() => {this.cancelBookReservation(book._id)}} backgroundColor="rgb(237, 218, 220)">Cancel Reservation</RaisedButton>
                                                 :
                                             <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>

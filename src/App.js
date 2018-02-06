@@ -39,7 +39,7 @@ class App extends Component {
             register: false,
             registerAnchor: null,
             logged: false,
-            reservations: true,
+            reservations: false,
             username: "",
             password: "",
         }
@@ -156,6 +156,7 @@ class App extends Component {
                             </div>
                             { this.state.logged && <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>}
                             <div id={"toolbarControls"}>
+                                {/*<h1 style={{color: 'red'}}>{this.state.reservations? "RESERVATIONS": "NO"}</h1>*/}
                                 {!this.state.logged ?
                                     <React.Fragment>
                                         <section id={"login"} className={"login"}>
@@ -170,7 +171,7 @@ class App extends Component {
                                     </React.Fragment>
                                     :
                                     <React.Fragment>
-                                        <RaisedButton onClick={this.seeReservations} primary={true}>See {this.state.reservations? "My Reservations": "All books"}</RaisedButton>
+                                        <RaisedButton onClick={this.seeReservations} primary={true}>See {!this.state.reservations? "My Reservations": "All books"}</RaisedButton>
                                         <ToolbarSeparator/>
                                         <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
                                     </React.Fragment>
