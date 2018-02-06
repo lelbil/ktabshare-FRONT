@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Pagination from './Pagination'
+import Snackbar from 'material-ui/Snackbar'
 
 import _ from 'lodash'
 
@@ -34,6 +35,8 @@ class BookList extends Component {
             books: [],
             book: null,
             responseStatus: 200,
+            reservationSnackBar: false,
+            cancelSnackBar: false,
         }
     }
 
@@ -84,12 +87,6 @@ class BookList extends Component {
         this.setState({ book: null })
     }
 
-    removeBookFromBookList = bookId => {
-        this.setState({
-            books: _.filter(this.state.books, obj => obj._id !== bookId)
-        })
-    }
-
     reserveBook = bookId => {
         const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/reservation`
 
@@ -98,11 +95,12 @@ class BookList extends Component {
             method: 'put',
         })
             .then(response => {
-                if (response.status === 200 || response.status === 204) {
-                    alert('book reserved successfully')
-                    //TODO: Add a Snackbar instead of alert
-
-                    this.removeBookFromBookList(bookId)
+                if (response.status === 200) {
+                    this.setState({
+                        books: _.filter(this.state.books, obj => obj._id !== bookId),
+                        reservationSnackBar: true,
+                        book: null,
+                    })
                 } else {
                     alert('There was an error, not reserved') //TODO: be more friendly mate, no one likes alerts
                 }
@@ -118,14 +116,22 @@ class BookList extends Component {
         })
             .then(response => {
                 if (response.status === 200) {
-                    alert('Reservation Canceled')
-                    //TODO: Add a Snackbar instead of alert
-
-                    this.removeBookFromBookList(bookId)
+                    this.setState({
+                        books: _.filter(this.state.books, obj => obj._id !== bookId),
+                        cancelSnackBar: true,
+                        book: null,
+                    })
                 } else {
                     alert('There was an error, not canceled') //TODO: be more friendly mate, no one likes alerts
                 }
             })
+    }
+
+    closingSnackBar = () => {
+        this.setState({
+            reservationSnackBar: false,
+            cancelSnackBar: false,
+        })
     }
 
     render = () => (
@@ -135,6 +141,18 @@ class BookList extends Component {
                     <h1>There have been an error while fetching books</h1>
                 :
                     <div>
+                        <Snackbar
+                            open={this.state.reservationSnackBar}
+                            message="Book reserved :D"
+                            autoHideDuration={2000}
+                            onRequestClose={this.closingSnackBar}
+                        />
+                        <Snackbar
+                            open={this.state.cancelSnackBar}
+                            message="Reservation canceled!"
+                            autoHideDuration={2000}
+                            onRequestClose={this.closingSnackBar}
+                        />
                         <Book reservation={() => {this.reserveBook(this.state.book._id)}} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books && this.state.books.map(book => (
