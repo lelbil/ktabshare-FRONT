@@ -3,6 +3,8 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Pagination from './Pagination'
 
+import _ from 'lodash'
+
 import './BookList.css'
 
 import { defaultBookCoverImageUrl } from '../../helpers/constants'
@@ -82,6 +84,12 @@ class BookList extends Component {
         this.setState({ book: null })
     }
 
+    removeBookFromBookList = bookId => {
+        this.setState({
+            books: _.filter(this.state.books, obj => obj._id !== bookId)
+        })
+    }
+
     reserveBook = bookId => {
         const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/reservation`
 
@@ -93,12 +101,31 @@ class BookList extends Component {
                 if (response.status === 200 || response.status === 204) {
                     alert('book reserved successfully')
                     //TODO: Add a Snackbar instead of alert
-                    //TODO: Make sure the book goes out of the list
+
+                    this.removeBookFromBookList(bookId)
                 } else {
                     alert('There was an error, not reserved') //TODO: be more friendly mate, no one likes alerts
                 }
             })
+    }
 
+    cancelBookReservation = bookId => {
+        const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/cancelReservation`
+
+        fetch(reserveBookEndpoint, {
+            credentials: 'include',
+            method: 'put',
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    alert('Reservation Canceled')
+                    //TODO: Add a Snackbar instead of alert
+
+                    this.removeBookFromBookList(bookId)
+                } else {
+                    alert('There was an error, not canceled') //TODO: be more friendly mate, no one likes alerts
+                }
+            })
     }
 
     render = () => (
@@ -122,7 +149,7 @@ class BookList extends Component {
                                     </div>
                                     <div className="buttons">
                                         {!this.props.reservations ?
-                                            <RaisedButton backgroundColor="rgb(237, 218, 220)">Cancel Reservation</RaisedButton>
+                                            <RaisedButton onClick={() => {this.cancelBookReservation(book._id)}} backgroundColor="rgb(237, 218, 220)">Cancel Reservation</RaisedButton>
                                                 :
                                             <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
                                         }
