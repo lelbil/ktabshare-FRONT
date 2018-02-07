@@ -40,6 +40,7 @@ class App extends Component {
             registerAnchor: null,
             logged: false,
             reservations: false,
+            myBooks: false,
             username: "",
             password: "",
         }
@@ -137,7 +138,14 @@ class App extends Component {
     }
 
     seeReservations = () => {
-        this.setState({ reservations: !this.state.reservations })
+        this.setState({
+            reservations: !this.state.reservations,
+            myBooks: false,
+        })
+    }
+
+    myBooks = () => {
+        this.setState({ myBooks: !this.state.myBooks })
     }
 
   render() {
@@ -156,7 +164,6 @@ class App extends Component {
                             </div>
                             { this.state.logged && <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>}
                             <div id={"toolbarControls"}>
-                                {/*<h1 style={{color: 'red'}}>{this.state.reservations? "RESERVATIONS": "NO"}</h1>*/}
                                 {!this.state.logged ?
                                     <React.Fragment>
                                         <section id={"login"} className={"login"}>
@@ -172,6 +179,8 @@ class App extends Component {
                                     :
                                     <React.Fragment>
                                         <RaisedButton onClick={this.seeReservations} primary={true}>See {!this.state.reservations? "My Reservations": "All books"}</RaisedButton>
+                                        <ToolbarSeparator/>
+                                        <RaisedButton onClick={this.myBooks} primary={!this.state.myBooks} disabled={this.state.myBooks}>Books I Added</RaisedButton>
                                         <ToolbarSeparator/>
                                         <RaisedButton onClick={this.logout} primary={true}>Logout</RaisedButton>
                                     </React.Fragment>

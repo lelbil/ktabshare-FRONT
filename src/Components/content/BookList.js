@@ -162,7 +162,6 @@ class BookList extends Component {
                         />
                         <Book isReserved={this.props.reservations} reservation={() => this.dialogReservation(this.state.book._id)} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
-                        {/*<h1 style={{color: 'red'}}>{this.props.reservations? "RESERVATIONS": "NO"}</h1>*/}
                         {this.state.books && this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
                                 <div className="bookPanelContent">
