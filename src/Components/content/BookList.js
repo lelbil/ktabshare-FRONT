@@ -25,6 +25,7 @@ const styles = {
 
 const getAllBooksEndPoint = "http://localhost:3005/books"
 const seeReservationsEndPoint = "http://localhost:3005/books/reservedByMe"
+const myBooksEndPoint = "http://localhost:3005/books/byMe"
 
 class BookList extends Component {
     constructor(props) {
@@ -65,7 +66,7 @@ class BookList extends Component {
         const {title, author, languages, genres, page, perPage} = props.query
 
         this.setState({reservations: this.props.reservations}, () => {
-            const link = this.props.reservations ? seeReservationsEndPoint : getAllBooksEndPoint
+            const link = this.props.reservations ? seeReservationsEndPoint : ( this.props.myBooks ? myBooksEndPoint : getAllBooksEndPoint)
 
             fetch(`${link}?title=${title}&author=${author}&languages=${languages}&genres=${genres}&page=${page}&perPage=${perPage}`, {
                 credentials: 'include',

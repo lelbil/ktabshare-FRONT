@@ -189,7 +189,7 @@ class App extends Component {
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <Content reservations={this.state.reservations}/>
+                <Content reservations={this.state.reservations} myBooks={this.state.myBooks}/>
             </div>
         </MuiThemeProvider>
       </div>
