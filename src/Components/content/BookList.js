@@ -180,6 +180,7 @@ class BookList extends Component {
                                             <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
                                         }
                                         <RaisedButton onClick={() => {this.showBook(book)}}>Details</RaisedButton>
+                                        {book.isMine && <RaisedButton onClick={() => {this.props.edit(book)}}>Edit Book</RaisedButton>}
                                     </div>
                                 </div>
                             </Paper>

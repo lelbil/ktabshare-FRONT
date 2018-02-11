@@ -62,17 +62,26 @@ class AddOne extends Component {
                 title: null,
                 author: null,
                 description: null,
-            }
+            },
         }
     }
 
     componentWillReceiveProps(props) {
-        if (props.isOpen) this.setState({open: true})
+        if (props.isOpen) this.setState(_.assign(
+            {
+                open: true,
+                snackbarMessage: props.book? "Book update successfully :D" : "Book added. Thanks for participating! ;)" ,
+            },
+            props.book
+        ))
     }
 
     closeDialog = () => {
         this.setState({ open: false })
         this.props.close()
+        if (this.props.book) {
+            this.setState({ title: "", author: "", description: "", language: "", genres: [], })
+        }
     }
 
     closingSnackBar = () => {
@@ -90,8 +99,8 @@ class AddOne extends Component {
             coverPath: imgUrl,
         }
 
-        fetch("http://localhost:3005/books", {
-            method: 'post',
+        fetch(`http://localhost:3005/books/${this.props.book? this.props.book._id : ""}`, {
+            method: `${this.props.book? "put" : "post"}`,
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
@@ -100,7 +109,7 @@ class AddOne extends Component {
             body: JSON.stringify(body),
         })
             .then(response => {
-                if (response.status === 201) {
+                if (response.status === 201 || response.status === 200 || response.status === 204) {
                     this.setState({ snackBarOpen: true, title: "", author: "", description: "", language: "", genres: [] })
                     this.closeDialog()
                 }
@@ -144,7 +153,7 @@ class AddOne extends Component {
     render = () => (
         <div>
             <Dialog
-                title="Add A New Book"
+                title={this.props.book? `Edit ${this.props.book.title}` : "Add A New Book"}
                 actions={[
                     <RaisedButton
                         label="Save"
@@ -201,7 +210,7 @@ class AddOne extends Component {
             </Dialog>
             <Snackbar
                 open={this.state.snackBarOpen}
-                message="Book added. Thanks for participating! ;)"
+                message={this.state.snackbarMessage}
                 autoHideDuration={4000}
                 onRequestClose={this.closingSnackBar}
             />

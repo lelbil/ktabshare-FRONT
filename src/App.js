@@ -43,6 +43,7 @@ class App extends Component {
             myBooks: false,
             username: "",
             password: "",
+            bookToEdit: null,
         }
     }
 
@@ -59,6 +60,7 @@ class App extends Component {
     closeAddOneDialog = () => {
         this.setState({
             addBook: false,
+            bookToEdit: null,
         })
     }
 
@@ -148,11 +150,15 @@ class App extends Component {
         this.setState({ myBooks: !this.state.myBooks })
     }
 
+    editABook = book => {
+        this.setState({ bookToEdit: book, addBook: true })
+    }
+
   render() {
     return (
       <div className="App">
         <MuiThemeProvider>
-            <AddOne isOpen={this.state.addBook} close={this.closeAddOneDialog} />
+            <AddOne isOpen={this.state.addBook} close={this.closeAddOneDialog} book={this.state.bookToEdit}/>
             <Register isOpen={this.state.register} onRegister={this.onRegister} close={this.closeRegisterPopover} anchorEl={this.state.registerAnchor} />
             <div id={"boxesContainer"}>
                 <div id={"box1"} className={"box"}>
@@ -189,7 +195,7 @@ class App extends Component {
                         </ToolbarGroup>
                     </Toolbar>
                 </div>
-                <Content reservations={this.state.reservations} myBooks={this.state.myBooks}/>
+                <Content reservations={this.state.reservations} myBooks={this.state.myBooks} edit={this.editABook}/>
             </div>
         </MuiThemeProvider>
       </div>
