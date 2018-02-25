@@ -14,6 +14,8 @@ const validationMapping = {
     passwordConf: joi.string().valid(joi.ref('password')).required(),
 }
 
+const api_uri = `http://${ process.env.REACT_APP_API_URI || "localhost:3005"}`
+
 const userRegistrationValidation = joi.object().keys(validationMapping)
 
 class Register extends Component {
@@ -50,7 +52,7 @@ class Register extends Component {
             email, username, password, passwordConf,
         }
 
-        fetch('http://localhost:3005/users', {
+        fetch( api_uri + '/users', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',

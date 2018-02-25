@@ -23,9 +23,11 @@ const styles = {
     },
 }
 
-const getAllBooksEndPoint = "http://localhost:3005/books"
-const seeReservationsEndPoint = "http://localhost:3005/books/reservedByMe"
-const myBooksEndPoint = "http://localhost:3005/books/byMe"
+const api_uri = `http://${ process.env.REACT_APP_API_URI || "localhost:3005"}`
+
+const getAllBooksEndPoint = api_uri + "/books"
+const seeReservationsEndPoint = api_uri + "/books/reservedByMe"
+const myBooksEndPoint = api_uri + "/books/byMe"
 
 class BookList extends Component {
     constructor(props) {
@@ -45,8 +47,7 @@ class BookList extends Component {
         fetch(`${getAllBooksEndPoint}`)
             .then(response => {
                 if (response.status !== 200) {
-                    console.log('There was an error')
-                    console.log('Response: ', response)
+                    throw response
                 }
                 return response.json()
             })
@@ -59,6 +60,9 @@ class BookList extends Component {
                     hasNextPage: data.hasNextPage,
                     reservations: false,
                 })
+            })
+            .catch(error => {
+                console.log("There has been an error while fetching books: ", error)
             });
     }
 
@@ -92,7 +96,7 @@ class BookList extends Component {
     }
 
     reserveBook = bookId => {
-        const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/reservation`
+        const reserveBookEndpoint = api_uri + `/books/${bookId}/reservation`
 
         fetch(reserveBookEndpoint, {
             credentials: 'include',
@@ -112,7 +116,7 @@ class BookList extends Component {
     }
 
     cancelBookReservation = bookId => {
-        const reserveBookEndpoint = `http://localhost:3005/books/${bookId}/cancelReservation`
+        const reserveBookEndpoint = api_uri + `/books/${bookId}/cancelReservation`
 
         fetch(reserveBookEndpoint, {
             credentials: 'include',

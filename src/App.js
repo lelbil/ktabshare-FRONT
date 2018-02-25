@@ -26,6 +26,8 @@ const styles = {
     },
 }
 
+const api_uri = `http://${ process.env.REACT_APP_API_URI || "localhost:3005"}`
+
 class App extends Component {
 
     static propTypes = {
@@ -85,7 +87,7 @@ class App extends Component {
     login = () => {
         const { username, password } = this.state
 
-        fetch('http://localhost:3005/users/login', {
+        fetch(api_uri + '/users/login', {
             method: 'post',
             credentials: 'include',
             headers: {
@@ -106,7 +108,7 @@ class App extends Component {
     }
 
     logout = () => {
-        fetch('http://localhost:3005/users/logout', {
+        fetch( api_uri + '/users/logout', {
             method: 'post',
             credentials: 'include',
             headers: {

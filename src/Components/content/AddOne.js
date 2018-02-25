@@ -45,6 +45,8 @@ const postBookValidation = joi.object().keys({
     description: joi.string().allow(["", null]).max(1000),
 })
 
+const api_uri = `http://${process.env.REACT_APP_API_URI || "localhost:3005"}`
+
 class AddOne extends Component {
     constructor(props) {
         super(props)
@@ -98,8 +100,7 @@ class AddOne extends Component {
             language,
             coverPath: imgUrl,
         }
-
-        fetch(`http://localhost:3005/books/${this.props.book? this.props.book._id : ""}`, {
+        fetch(`${api_uri}/books/${this.props.book? this.props.book._id : ""}`, {
             method: `${this.props.book? "put" : "post"}`,
             credentials: 'include',
             headers: {
