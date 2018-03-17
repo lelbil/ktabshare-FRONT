@@ -31,14 +31,14 @@ const styles = {
 const languageList = languages.map(language => <MenuItem value={language} primaryText={capitalizeFirstLetters(language)}/>)
 
 const validationMapping = {
-    title: joi.string().max(255).min(3).required(),
-    author: joi.string().min(3).max(55).allow(null),
+    title: joi.string().trim().max(255).min(3).required(),
+    author: joi.string().trim().min(3).max(55).allow(null),
     description: joi.string().allow(["", null]).max(1000),
 }
 
 const postBookValidation = joi.object().keys({
-    title: joi.string().max(255).min(3).required(),
-    author: joi.string().max(55).min(3).allow(null),
+    title: joi.string().trim().max(255).min(3).required(),
+    author: joi.string().trim().max(55).min(3).allow(null),
     imgUrl: joi.string().max(255).allow(null),
     language: joi.string().valid(languages).allow(null).required(),
     genres: joi.array().items(joi.string().max(50).valid(genres)).allow([]).required(),
@@ -124,10 +124,10 @@ class AddOne extends Component {
             });
     }
 
-    handleLanguageChange = (event, index, language) => this.setState({language});
+    handleLanguageChange = (event, index, language) => this.setState({language}, this.validate());
 
     handleGenreChange = (event, index, genres) => {
-        this.setState({genres});
+        this.setState({genres}, this.validate());
     }
 
     changeCover = (e) => {
@@ -138,17 +138,20 @@ class AddOne extends Component {
         this.setState({ imgUrl: null })
     }
 
+    validate = () => {
+        const validationObject = _.pick(this.state, ['title', 'author', 'imgUrl', 'language', 'genres', 'description'])
+        const valid = ! joi.validate(validationObject, postBookValidation).error
+        console.log("VALID", valid)
+        this.setState({ valid })
+    }
+
     change = (e) => {
         const { name, value } = e.target
         const newBookInfo = {}
         newBookInfo[name] = value
         const newErrorObject = {}
         newErrorObject[name] = joi.validate(value, validationMapping[name]).error && joi.validate(value, validationMapping[name]).error.message
-        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject)}), () => {
-            const validationObject = _.pick(this.state, ['title', 'author', 'imgUrl', 'language', 'genres', 'description'])
-            const valid = ! joi.validate(validationObject, postBookValidation).error
-            this.setState({ valid })
-        })
+        this.setState(Object.assign(newBookInfo, {errors: Object.assign(this.state.errors, newErrorObject)}), () => {this.validate()})
     }
 
     render = () => (
@@ -157,7 +160,7 @@ class AddOne extends Component {
                 title={this.props.book? `Edit ${this.props.book.title}` : "Add A New Book"}
                 actions={[
                     <RaisedButton
-                        label="Save"
+                        label="Add"
                         isValid={false}
                         primary={true}
                         onClick={this.submitForm}
