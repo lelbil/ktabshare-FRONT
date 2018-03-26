@@ -23,7 +23,7 @@ const styles = {
     },
 }
 
-const api_uri = `http://${ process.env.REACT_APP_API_URI || "localhost:3005"}`
+const api_uri = process.env.REACT_APP_API_URI || "localhost:3005"
 
 const getAllBooksEndPoint = api_uri + "/books"
 const seeReservationsEndPoint = api_uri + "/books/reservedByMe"

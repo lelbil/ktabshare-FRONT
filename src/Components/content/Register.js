@@ -14,7 +14,7 @@ const validationMapping = {
     passwordConf: joi.string().valid(joi.ref('password')).required(),
 }
 
-const api_uri = `http://${ process.env.REACT_APP_API_URI || "localhost:3005"}`
+const api_uri = process.env.REACT_APP_API_URI || "localhost:3005"
 
 const userRegistrationValidation = joi.object().keys(validationMapping)
 
