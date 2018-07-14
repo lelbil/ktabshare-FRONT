@@ -45,7 +45,7 @@ const postBookValidation = joi.object().keys({
     description: joi.string().allow(["", null]).max(1000),
 })
 
-const api_uri = process.env.REACT_APP_API_URI || "localhost:3005"
+const api_uri = process.env.REACT_APP_API_URI || "http://localhost:3005"
 
 class AddOne extends Component {
     constructor(props) {

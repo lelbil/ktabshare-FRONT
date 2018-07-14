@@ -26,7 +26,7 @@ const styles = {
     },
 }
 
-const api_uri = process.env.REACT_APP_API_URI || "localhost:3005"
+const api_uri = process.env.REACT_APP_API_URI || "http://localhost:3005"
 
 class App extends Component {
 
