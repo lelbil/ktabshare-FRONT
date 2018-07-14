@@ -167,7 +167,7 @@ class App extends Component {
                     <Toolbar style={styles.toolbar} id={"toolbar"}>
                         <ToolbarGroup id={"toolbarGroup"}>
                             <div id={"toolbarTitle"}>
-                                <ToolbarTitle text="KtabShare"/>
+                                <ToolbarTitle text="BookDealer"/>
                                 <ToolbarSeparator/>
                             </div>
                             { this.state.logged && <RaisedButton onClick={this.addABook} style={{ marginLeft: "auto",}} primary={true}>&nbsp;Add A Book <Add style={{margin: "auto"}} /></RaisedButton>}
