@@ -38,8 +38,7 @@ class BookList extends Component {
             books: [],
             book: null,
             responseStatus: 200,
-            reservationSnackBar: false,
-            cancelSnackBar: false,
+            snackbarOpen: false,
         }
     }
 
@@ -96,6 +95,12 @@ class BookList extends Component {
     }
 
     reserveBook = bookId => {
+        if (!this.props.logged) {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: "Please login or register"
+            })
+        }
         const reserveBookEndpoint = api_uri + `/books/${bookId}/reservation`
 
         fetch(reserveBookEndpoint, {
@@ -106,11 +111,12 @@ class BookList extends Component {
                 if (response.status === 200) {
                     this.setState({
                         books: _.filter(this.state.books, obj => obj._id !== bookId),
-                        reservationSnackBar: true,
+                        snackbarOpen: true,
+                        snackbarMessage: "Book added to cart :D",
                         book: null,
                     })
                 } else {
-                    alert('There was an error, not reserved') //TODO: be more friendly mate, no one likes alerts
+                    console.log('There was an error, not reserved') //TODO: be more friendly mate, no one likes alerts
                 }
             })
     }
@@ -126,7 +132,8 @@ class BookList extends Component {
                 if (response.status === 200) {
                     this.setState({
                         books: _.filter(this.state.books, obj => obj._id !== bookId),
-                        cancelSnackBar: true,
+                        snackbarOpen: true,
+                        snackbarMessage: "Order canceled!",
                         book: null,
                     })
                 } else {
@@ -137,8 +144,7 @@ class BookList extends Component {
 
     closingSnackBar = () => {
         this.setState({
-            reservationSnackBar: false,
-            cancelSnackBar: false,
+            snackbarOpen: false,
         })
     }
 
@@ -154,18 +160,12 @@ class BookList extends Component {
                 :
                     <div>
                         <Snackbar
-                            open={this.state.reservationSnackBar}
-                            message="Book reserved :D"
+                            open={this.state.snackbarOpen}
+                            message={this.state.snackbarMessage}
                             autoHideDuration={4000}
                             onRequestClose={this.closingSnackBar}
                         />
-                        <Snackbar
-                            open={this.state.cancelSnackBar}
-                            message="Reservation canceled!"
-                            autoHideDuration={4000}
-                            onRequestClose={this.closingSnackBar}
-                        />
-                        <Book isReserved={this.props.reservations} reservation={() => this.dialogReservation(this.state.book._id)} book={this.state.book} nullBook={() => {this.nullBook()}}/>
+                        <Book logged={this.props.logged} isReserved={this.props.reservations} reservation={() => this.dialogReservation(this.state.book._id)} book={this.state.book} nullBook={() => {this.nullBook()}}/>
                         <Pagination pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                         {this.state.books && this.state.books.map(book => (
                             <Paper className="bookPanel" zDepth={3}>
@@ -179,9 +179,9 @@ class BookList extends Component {
                                     </div>
                                     <div className="buttons">
                                         {this.props.reservations ?
-                                            <RaisedButton onClick={() => {this.cancelBookReservation(book._id)}} backgroundColor="rgb(237, 218, 220)">Cancel Reservation</RaisedButton>
+                                            <RaisedButton onClick={() => {this.cancelBookReservation(book._id)}} backgroundColor="rgb(237, 218, 220)">Cancel Order</RaisedButton>
                                                 :
-                                            <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Reserve</RaisedButton>
+                                            <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
                                         }
                                         <RaisedButton onClick={() => {this.showBook(book)}}>Details</RaisedButton>
                                         {book.isMine && <RaisedButton onClick={() => {this.props.edit(book)}}>Edit Book</RaisedButton>}

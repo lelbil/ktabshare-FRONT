@@ -60,9 +60,10 @@ class Book extends Component {
             <Dialog
                 actions={[
                     <RaisedButton
-                        label={!this.props.isReserved? "Reserve" : "Cancel Reservation"}
+                        label={!this.props.isReserved? "Buy" : "Cancel Order"}
                         primary={true}
                         onClick={this.props.reservation}
+                        disabled={!this.props.logged}
                         style={styles.actionButton}
                     />,
                     <RaisedButton
