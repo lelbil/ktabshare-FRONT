@@ -181,7 +181,7 @@ class BookList extends Component {
                                         {this.props.reservations ?
                                             <RaisedButton onClick={() => {this.cancelBookReservation(book._id)}} backgroundColor="rgb(237, 218, 220)">Cancel Order</RaisedButton>
                                                 :
-                                            <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">BUY</RaisedButton>
+                                            <RaisedButton onClick={() => {this.reserveBook(book._id)}} backgroundColor="rgb(237, 218, 220)">Get it now</RaisedButton>
                                         }
                                         <RaisedButton onClick={() => {this.showBook(book)}}>Details</RaisedButton>
                                         {book.isMine && <RaisedButton onClick={() => {this.props.edit(book)}}>Edit Book</RaisedButton>}
@@ -189,6 +189,7 @@ class BookList extends Component {
                                 </div>
                             </Paper>
                         ))}
+                        <Pagination style={{marginBottom: '30px'}} pageChange={this.props.handlePage} page={this.state.page} perPage={this.state.perPage} count={this.state.count} hasNextPage={this.state.hasNextPage}/>
                     </div>
             }
         </div>

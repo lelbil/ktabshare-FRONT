@@ -5,17 +5,6 @@ import { ChevronLeft, ChevronRight } from 'material-ui-icons'
 
 import './Pagination.css'
 
-const styles = {
-    root: {
-        display: "flex",
-        justifyContent: "space-around"
-    },
-    perPage: {
-        display: "flex",
-        flexDirection: "row"
-    }
-}
-
 class Pagination extends Component {
 
     constructor(props) {
@@ -39,7 +28,7 @@ class Pagination extends Component {
         const howManyPages = Math.floor(count / perPage) + 1
 
         return (
-            <div style={styles.root}>
+            <div style={this.styles.root}>
                 <span>
                     <IconButton disabled={page === 1} onClick={() => {this.pageChange(page - 1, this.state.perPage)}}><ChevronLeft className="iconButton"/></IconButton>
                     { howManyPages >= 2 && page > 1 && <a disabled={page === 1} onClick={() => {this.pageChange(1, this.state.perPage)}}>1</a>}
@@ -51,9 +40,9 @@ class Pagination extends Component {
                     {page < howManyPages && <a onClick={() => {this.pageChange(howManyPages, this.state.perPage)}}>{howManyPages}</a>}
                     <IconButton disabled={!hasNextPage} onClick={() => {this.pageChange(page + 1, this.state.perPage)}}><ChevronRight  className="iconButton"/></IconButton>
                 </span>
-                <span style={{...styles.perPage, marginTop: "15px"}} >
+                <span style={{...this.styles.perPage, marginTop: "15px"}} >
                     <span>Per Page: </span>
-                    <RadioButtonGroup style={styles.perPage} valueSelected={this.state.perPage}>
+                    <RadioButtonGroup style={this.styles.perPage} valueSelected={perPage}>
                         <RadioButton style={{display:'block', width: ''}}
                                      onClick={() => {this.pageChange(1, 10)}}
                             label="10" value={10}
@@ -75,6 +64,18 @@ class Pagination extends Component {
                 </span>
             </div>
         )
+    }
+
+    styles = {
+        root: {
+            display: "flex",
+            justifyContent: "space-around",
+            ...this.props.style,
+        },
+        perPage: {
+            display: "flex",
+            flexDirection: "row"
+        }
     }
 }
 

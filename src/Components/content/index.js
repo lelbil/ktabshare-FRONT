@@ -49,6 +49,8 @@ class Content extends Component {
 
     handlePage = (page, perPage) => {
         this.setState({ query: Object.assign(this.state.query, {page, perPage})})
+        //Scroll to top of the page at any pagination change
+        document.getElementById('bookContainer').scrollTop = 0
     }
 
     render = () => (
