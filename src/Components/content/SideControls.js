@@ -10,9 +10,6 @@ import _ from 'lodash'
 import { capitalizeFirstLetters } from '../../helpers'
 import { languages, genres } from "../../helpers/constants"
 
-
-import './SideControls.css'
-
 const styles = {
     sideControls: {
         backgroundColor: "rgba(0, 0, 0, 0.2)",
@@ -20,6 +17,7 @@ const styles = {
         borderRadius: "10px",
         paddingBottom: "40px",
         overflow: "auto",
+        fontFamily: "Comic Sans MS",
     },
     divider: {
         backgroundColor: "black",
@@ -85,7 +83,7 @@ class SideControls extends Component {
     }
 
     render = () => (
-        <div id={"sideControls"} style={styles.sideControls}>
+        <div style={styles.sideControls}>
             <List>
                 <TextField name="title" id="titleSearchField" className="textField" floatingLabelText={"Title"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}} onChange={this.change}/>
                 <TextField name="author" id="authorSearchField" className="textField" floatingLabelText={"Author"} floatingLabelStyle={{color: "wheat"}} floatingLabelFocusStyle={{color: blue500}} onChange={this.change}/>
