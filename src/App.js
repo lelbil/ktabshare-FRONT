@@ -148,6 +148,12 @@ class App extends Component {
         })
     }
 
+    handleKeyPress = event => {
+        if(event.key === 'Enter'){
+            this.login()
+        }
+    }
+
     myBooks = () => {
         this.setState({ myBooks: !this.state.myBooks })
     }
@@ -176,8 +182,8 @@ class App extends Component {
                                     <React.Fragment>
                                         <section id={"login"} className={"login"}>
                                             <form action={""} className="login">
-                                                <input name="username" value={this.state.username} onChange={this.change} type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
-                                                <input name="password" value={this.state.password} onChange={this.change} type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
+                                                <input onKeyPress={this.handleKeyPress} name="username" value={this.state.username} onChange={this.change} type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
+                                                <input onKeyPress={this.handleKeyPress} name="password" value={this.state.password} onChange={this.change} type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
                                                 <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
                                             </form>
                                         </section>

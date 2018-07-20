@@ -103,6 +103,12 @@ class Register extends Component {
         })
     }
 
+    handleKeyPress = event => {
+        if(event.key === 'Enter'){
+            this.signUp()
+        }
+    }
+
     render () {
         return <React.Fragment>
             <Popover
@@ -113,10 +119,10 @@ class Register extends Component {
             >
                 <div style={{ width: "300px", display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <form style={{ display: "flex", flexDirection: "column", width: "90%", marginBottom: "20px", }}>
-                        <TextField errorText={this.state.errors.email} onChange={this.change} value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField errorText={this.state.errors.username} onChange={this.change} value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField errorText={this.state.errors.password} onChange={this.change} type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
-                        <TextField errorText={this.state.errors.passwordConf} onChange={this.change} type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField onKeyPress={this.handleKeyPress} errorText={this.state.errors.email} onChange={this.change} value={this.state.email} fullWidth={true} name="email" floatingLabelText={"Email"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField onKeyPress={this.handleKeyPress} errorText={this.state.errors.username} onChange={this.change} value={this.state.username} fullWidth={true} name="username" floatingLabelText={"Username"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField onKeyPress={this.handleKeyPress} errorText={this.state.errors.password} onChange={this.change} type="password" value={this.state.password} fullWidth={true} name="password" floatingLabelText={"Password"} floatingLabelFocusStyle={{color: blue500}}/>
+                        <TextField onKeyPress={this.handleKeyPress} errorText={this.state.errors.passwordConf} onChange={this.change} type="password" value={this.state.passwordConf} fullWidth={true} name="passwordConf" floatingLabelText={"Confirm Password"} floatingLabelFocusStyle={{color: blue500}}/>
                         <RaisedButton onClick={this.signUp} style={{margin: "10px",}} primary={true} disabled={!this.state.valid}>Register</RaisedButton>
                     </form>
                 </div>
