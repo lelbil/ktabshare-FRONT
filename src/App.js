@@ -23,6 +23,10 @@ const styles = {
     },
     passwordInput: {
         height:"30px",
+        marginRight: "5px",
+    },
+    registerButton: {
+        alignSelf: 'center',
     },
 }
 
@@ -46,6 +50,7 @@ class App extends Component {
             username: "",
             password: "",
             bookToEdit: null,
+            loginError: false,
         }
     }
 
@@ -96,9 +101,19 @@ class App extends Component {
             },
             body: JSON.stringify({username, password}),
         })
-            .then(response => {
+            .then(async response => {
                 if (response.status !== 200) {
-                    alert('login failed') //TODO: more user friendly please!!
+                    const result = await response.json()
+                    console.log('RESULT', result)
+                    if (result.name === 'FAILED LOGIN') {
+                        document.getElementById('loginUser').style.boxShadow = '0 0 1px 1px red'
+                        document.getElementById('loginPassword').style.boxShadow = '0 0 1px 1px red'
+                        this.setState({
+                            password: '',
+                            loginError: true,
+                        })
+                    }
+                    else console.log('LOGIN FAILED, UNKNOWN ERROR', result)
                 } else {
                     this.props.cookies.set('logged', true)
                     this.changeLoggedState()
@@ -180,15 +195,18 @@ class App extends Component {
                             <div id={"toolbarControls"}>
                                 {!this.state.logged ?
                                     <React.Fragment>
+                                        <div>
                                         <section id={"login"} className={"login"}>
                                             <form action={""} className="login">
-                                                <input onKeyPress={this.handleKeyPress} name="username" value={this.state.username} onChange={this.change} type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
-                                                <input onKeyPress={this.handleKeyPress} name="password" value={this.state.password} onChange={this.change} type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
+                                                <input id='loginUser' onKeyPress={this.handleKeyPress} name="username" value={this.state.username} onChange={this.change} type={"text"} placeholder={"Username"} style={styles.usernameInput}/>
+                                                <input id='loginPassword' onKeyPress={this.handleKeyPress} name="password" value={this.state.password} onChange={this.change} type={"password"} placeholder={"Password"} style={styles.passwordInput}/>
                                                 <RaisedButton onClick={this.login} primary={true}>Login</RaisedButton>
                                             </form>
                                         </section>
+                                            { this.state.loginError && <h5 style={{margin: 1, color: 'red'}}>Wrong username/password</h5> }
+                                        </div>
                                         <ToolbarSeparator/>
-                                        <RaisedButton id = {"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
+                                        <RaisedButton style={ styles.registerButton } id = {"registerButton"} onClick={this.signup} primary={true}>Register</RaisedButton>
                                     </React.Fragment>
                                     :
                                     <React.Fragment>
