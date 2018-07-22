@@ -59,14 +59,27 @@ class Register extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
-        }).then(response => {
+        }).then(async response => {
             if (response.status === 201) {
                 this.setState({ snackBarOpen: true })
                 this.closePopover()
                 this.onRegister()
             }
             else {
-                alert('there has been an error, no user created!')
+                const result = await response.json()
+                if (result.name === 'EXISTING EMAIL ERROR') { //TODO: use error code instead
+                    this.setState({
+                        errors: {...this.state.errors, email: 'This email already exists!'}
+                    })
+                }
+                else if (result.name === 'EXISTING USERNAME ERROR') {
+                    this.setState({
+                        errors: {...this.state.errors, username: 'This username already exists!'}
+                    })
+                }
+                else {
+                    console.log('There was an unexpected error while registering a new user', result)
+                }
             }
         })
             .catch(function (error) {
