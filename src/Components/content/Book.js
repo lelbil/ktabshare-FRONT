@@ -51,6 +51,9 @@ class Book extends Component {
         if (props.book) this.setState({ open: true })
     }
 
+    loadDefaultCover = e => {
+        e.target.src = defaultBookCoverImageUrl
+    }
 
     render = () => {
 
@@ -80,7 +83,7 @@ class Book extends Component {
             >
                 <div style={{display: "flex"}}>
                     <div>
-                        <img alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
+                        <img onError={this.loadDefaultCover} alt={book.title} src={book.coverPath} style={styles.bookCover}/>
                     </div>
                     <div style={styles.bookDetails}>
                         <p>

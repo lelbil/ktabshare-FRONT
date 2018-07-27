@@ -161,6 +161,10 @@ class BookList extends Component {
         !this.props.reservations? this.reserveBook(bookId) : this.cancelBookReservation(bookId)
     }
 
+    loadDefaultCover = e => {
+        e.target.src = defaultBookCoverImageUrl
+    }
+
     render = () => (
         <div id="bookContainer">
             {
@@ -183,7 +187,7 @@ class BookList extends Component {
                                 {this.state.books && this.state.books.map(book => (
                                     <Paper className="bookPanel" zDepth={3}>
                                         <div className="bookPanelContent">
-                                            <img className="bookCover" alt={book.title} src={book.coverPath || defaultBookCoverImageUrl } style={styles.bookCover}/>
+                                            <img onError={this.loadDefaultCover} className="bookCover" alt={book.title} src={book.coverPath} style={styles.bookCover}/>
                                             <div className="bookInfo">
                                                 <h3 className="bookTitle">{book.title}</h3>
                                                 <br/>
