@@ -7,7 +7,6 @@ import BookList from './BookList'
 const styles = {
     box2: {
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
     },
 }
